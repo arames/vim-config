@@ -9,6 +9,8 @@ set nocompatible
 
 set shell=/bin/bash
 
+set encoding=utf-8
+
 set history=10000               " Keep 10000 lines of command line history.
 set mouse=a                     " Enable the use of the mouse.
 set ignorecase                  " Ignore case in search by default.
