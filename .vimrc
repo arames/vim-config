@@ -80,15 +80,28 @@ let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012
 Bundle 'plasticboy/vim-markdown'
 " Word highlighting.
 Bundle 'vim-scripts/Mark--Karkat'
+" Git integration.
+Bundle 'tpope/vim-fugitive'
+" Display lines git diff status when editing a file in a git repository.
+Bundle 'airblade/vim-gitgutter'
 "" Asynchronous commands
 "Bundle 'tpope/vim-dispatch'
 " Use tabs for indentation and spaces for alignment (when using tabs).
 " TODO: Unluckily this breaks /**/ comments closing.
 " Bundle 'vim-scripts/Smart-Tabs'
+" TODO: This one doesn't work for me.
+"Bundle 'vim-scripts/ingo-library'
+"Bundle 'vim-scripts/IndentTab'
 ""Bundle 'Valloric/YouCompleteMe'
 "Bundle 'vim-scripts/Align'
 "" Need to work out how to get it working for more complex projects.
 ""Bundle 'scrooloose/syntastic'
+
+" Personal wiki
+Bundle 'vim-scripts/vimwiki'
+" Use the markdown syntax
+let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Required by Vundle.
 filetype plugin indent on
@@ -200,6 +213,8 @@ map <C-v><C-]>  :vsp <CR>:exec("tjump ".expand("<cword>"))<CR>
 
 " Indentation =========================================={{{2
 
+set textwidth=80
+
 command! IndentGoogle      set   expandtab shiftwidth=2 tabstop=2 cinoptions=(0,w1,i4,W4,l1,g1,h1,N-s,t0
 command! IndentLinuxKernel set noexpandtab shiftwidth=8 tabstop=8 cinoptions=(0,w1,i4,W4,l1,g1,h1,N-s,t0,:0
 command! IndentStandard IndentGoogle
@@ -258,6 +273,9 @@ endfunction
 
 " Pressing shift-; takes too much time.
 noremap ; :
+" But the ';' key to re-execute the latest find command is useful
+noremap - ;
+noremap _ ,
 
 " %% expands to the path of the current file.
 cabbr <expr> %% expand('%:p:h')
@@ -288,5 +306,4 @@ cnoremap <C-x> <Del>
 
 
 " .vimrc specific options =================================================={{{1
-"
 " vim: set foldmethod=marker:
