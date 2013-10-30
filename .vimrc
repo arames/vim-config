@@ -165,16 +165,16 @@ set completeopt=menu,longest,preview
 " Grep in current directory.
 set grepprg=grep\ -RHIn\ --exclude=\".tags\"\ --exclude-dir=\".svn\"\ --exclude-dir=\".git\"
 " Grep for the word under the cursor or the selected text.
-nnoremap <F8> :grep "<C-r><C-w>"<CR>
-nnoremap <leader>grep :grep "<C-r><C-w>"<CR>
-vnoremap <leader>grep "zy:<C-u>grep "<C-r>z"<CR>
+nnoremap <F8> :Grep "<C-r><C-w>" .<CR>
+nnoremap <leader>grep :Grep "<C-r><C-w>" .<CR>
+vnoremap <leader>grep "zy:<C-u>Grep "<C-r>z" .<CR>
 " The extended versions cause vim to wait for a further key.
 " If the wait is too long press space!
-nnoremap <leader>grep<Space> :grep "<C-r><C-w>"<CR>
-vnoremap <leader>grep<Space> "zy:<C-u>grep "<C-r>z"<CR>
+nnoremap <leader>grep<Space> :Grep "<C-r><C-w>" .<CR>
+vnoremap <leader>grep<Space> "zy:<C-u>Grep "<C-r>z" .<CR>
 " Grep for text with word boundaries.
-nnoremap <leader>grepw :grep "\\<<C-r><C-w>\\>"<CR>
-vnoremap <leader>grepw "zy:<C-u>grep "\\<<C-r>z\\>"<CR>
+nnoremap <leader>grepw :Grep "\\<<C-r><C-w>\\>" .<CR>
+vnoremap <leader>grepw "zy:<C-u>Grep "\\<<C-r>z\\>" .<CR>
 
 " Background grep
 let g:BgGrep_res = '/tmp/vim.grep.res'
