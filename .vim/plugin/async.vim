@@ -10,9 +10,12 @@
 " with a servername (automatically suffixed with an index when multiple
 " sessions are started).
 " Bash example:
-"   alias vim="vim --servername vimserver"
+"     vim --version | grep "+clientserver" > /dev/null
+"     if [ $? -eq 0 ]; then
+"       alias vim="vim --servername vimserver"
+"     fi
 "
-" The plugin provides a singly Async() function. See its definition for
+" The plugin provides a single Async() function. See its definition for
 " details about the parameters, and the example use cases below.
 
 " Example usage ========================================{{{2
