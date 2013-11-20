@@ -86,6 +86,7 @@ Bundle 'vim-scripts/Mark--Karkat'
 Bundle 'tpope/vim-fugitive'
 " Display lines git diff status when editing a file in a git repository.
 Bundle 'airblade/vim-gitgutter'
+
 "" Asynchronous commands
 "Bundle 'tpope/vim-dispatch'
 " Use tabs for indentation and spaces for alignment (when using tabs).
@@ -98,6 +99,11 @@ Bundle 'airblade/vim-gitgutter'
 "Bundle 'vim-scripts/Align'
 "" Need to work out how to get it working for more complex projects.
 ""Bundle 'scrooloose/syntastic'
+
+" Easy jump from diff to file.
+Bundle 'vim-scripts/DiffGoFile'
+autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
+autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 
 " Personal wiki
 Bundle 'vim-scripts/vimwiki'
