@@ -101,6 +101,20 @@ Bundle 'airblade/vim-gitgutter'
 ""Bundle 'scrooloose/syntastic'
 
 " Easy jump from diff to file.
+" Note that by default the plugin opens diffs in a new buffer, even if the
+" associated file is already opened. If the file is already opened in a buffer,
+" the following patch instead jumps to the buffer and to the right location.
+" --- a/ftplugin/diff_gofile.vim
+" +++ b/ftplugin/diff_gofile.vim
+" @@ -92,7 +92,7 @@ function DiffGoFile(doSplit)
+"
+"         " restore position in diff window
+"         call <SID>RestoreCursorPosition (l:pos)
+" -       call <SID>FindOrCreateBuffer(l:file, a:doSplit, 0)
+" +       call <SID>FindOrCreateBuffer(l:file, a:doSplit, 1)
+"         call <SID>RestoreCursorPosition (l:result[1:])
+"  endfunction
+"  endif
 Bundle 'vim-scripts/DiffGoFile'
 autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
