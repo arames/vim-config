@@ -86,6 +86,8 @@ Bundle 'vim-scripts/Mark--Karkat'
 Bundle 'tpope/vim-fugitive'
 " Display lines git diff status when editing a file in a git repository.
 Bundle 'airblade/vim-gitgutter'
+" Python indentation
+Bundle 'hynek/vim-python-pep8-indent'
 
 "" Asynchronous commands
 "Bundle 'tpope/vim-dispatch'
@@ -99,6 +101,8 @@ Bundle 'airblade/vim-gitgutter'
 "Bundle 'vim-scripts/Align'
 "" Need to work out how to get it working for more complex projects.
 ""Bundle 'scrooloose/syntastic'
+" Causes segfaults
+"Bundle 'klen/python-mode'
 
 " Easy jump from diff to file.
 " Note that by default the plugin opens diffs in a new buffer, even if the
@@ -206,6 +210,14 @@ endfunction
 function! BgGrepDone()
   exec('cgetfile' . g:BgGrep_res)
   echohl Error | echo "Background grep done." | echohl None
+endfunction
+
+let g:Jrep_res = '/tmp/vim.jrep.res'
+let s:Jrep_command = '!jrep -RHn'
+command! -nargs=* -complete=dir Jrep call JrepFunction(<f-args>)
+function! JrepFunction(...)
+  exec(s:Jrep_command. ' ' . join(a:000, ' ') . ' &> ' . g:Jrep_res)
+  exec('cgetfile' . g:Jrep_res)
 endfunction
 
 " Update tags file.
