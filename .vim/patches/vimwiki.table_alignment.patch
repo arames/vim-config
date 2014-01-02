@@ -1,0 +1,155 @@
+align
+
+From: Alexandre Rames <arames@solarflare.com>
+
+
+---
+ autoload/vimwiki/tbl.vim |   82 ++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 67 insertions(+), 15 deletions(-)
+
+diff --git a/autoload/vimwiki/tbl.vim b/autoload/vimwiki/tbl.vim
+index 3a8991d..6755182 100644
+--- a/autoload/vimwiki/tbl.vim
++++ b/autoload/vimwiki/tbl.vim
+@@ -58,7 +58,7 @@ function! s:is_table(line) "{{{
+ endfunction "}}}
+ 
+ function! s:is_separator(line) "{{{
+-  return a:line =~ '^\s*'.s:rxSep().'\(--\+'.s:rxSep().'\)\+\s*$'
++  return a:line =~ '^\s*'.s:rxSep().'\(:\?-\+:\?'.s:rxSep().'\)\+\s*$'
+ endfunction "}}}
+ 
+ function! s:is_separator_tail(line) "{{{
+@@ -257,11 +257,14 @@ endfunction "}}}
+ function! s:get_aligned_rows(lnum, col1, col2) "{{{
+   let max_lens = s:get_cell_max_lens(a:lnum)
+   let rows = []
++  " Each separator line set the alignment for the lines below.
++  let alignments = []
+   for [lnum, row] in s:get_rows(a:lnum)
+     if s:is_separator(row)
+-      let new_row = s:fmt_sep(max_lens, a:col1, a:col2)
++      let alignments = s:fmt_sep_alignments(row, max_lens, a:col1, a:col2)
++      let new_row = s:fmt_sep(row, max_lens, a:col1, a:col2)
+     else
+-      let new_row = s:fmt_row(row, max_lens, a:col1, a:col2)
++      let new_row = s:fmt_row(row, max_lens, alignments, a:col1, a:col2)
+     endif
+     call add(rows, [lnum, new_row])
+   endfor
+@@ -291,7 +294,7 @@ endfunction "}}}
+ " }}}
+ 
+ " Format functions {{{
+-function! s:fmt_cell(cell, max_len) "{{{
++function! s:fmt_cell(cell, max_len, align) "{{{
+   let cell = ' '.a:cell.' '
+ 
+   let diff = a:max_len - s:wide_len(a:cell)
+@@ -299,11 +302,19 @@ function! s:fmt_cell(cell, max_len) "{{{
+     let diff = 1
+   endif
+ 
+-  let cell .= repeat(' ', diff)
++  if (a:align == 'RIGHT')
++    let cell = repeat(' ', diff) . cell
++  elseif (a:align == 'CENTER')
++    let left_spaces = repeat(' ', diff / 2)
++    let right_spaces = repeat(' ', diff / 2 + diff % 2)
++    let cell = left_spaces . cell . right_spaces
++  else
++    let cell .= repeat(' ', diff)
++  endif
+   return cell
+ endfunction "}}}
+ 
+-function! s:fmt_row(line, max_lens, col1, col2) "{{{
++function! s:fmt_row(line, max_lens, alignments, col1, col2) "{{{
+   let new_line = s:rxSep()
+   let cells = vimwiki#tbl#get_cells(a:line)
+   for idx in range(len(cells))
+@@ -313,34 +324,75 @@ function! s:fmt_row(line, max_lens, col1, col2) "{{{
+       let idx = a:col1
+     endif
+     let value = cells[idx]
+-    let new_line .= s:fmt_cell(value, a:max_lens[idx]).s:rxSep()
++    let alignment = 'NONE'
++    if (len(a:alignments) > idx)
++      let alignment = a:alignments[idx]
++    endif
++    let new_line .= s:fmt_cell(value, a:max_lens[idx], alignment).s:rxSep()
+   endfor
+ 
+   let idx = len(cells)
+   while idx < len(a:max_lens)
+-    let new_line .= s:fmt_cell('', a:max_lens[idx]).s:rxSep()
++    let new_line .= s:fmt_cell('', a:max_lens[idx], alignment).s:rxSep()
+     let idx += 1
+   endwhile
+   return new_line
+ endfunction "}}}
+ 
+-function! s:fmt_cell_sep(max_len) "{{{
+-  if a:max_len == 0
+-    return repeat('-', 3)
+-  else
+-    return repeat('-', a:max_len+2)
++function! s:fmt_cell_sep(max_len, align) "{{{
++  let len = max([1, a:max_len])
++  let prefix = '-'
++  let suffix = '-'
++  if a:align == 'CENTER' || a:align == 'LEFT'
++    let prefix = ':'
++  endif
++  if a:align == 'CENTER' || a:align == 'RIGHT'
++    let suffix = ':'
+   endif
++  return prefix.repeat('-', len).suffix
++endfunction "}}}
++
++function! s:fmt_sep_alignments(line, max_lens, col1, col2) "{{{
++  let alignments = []
++  for idx in range(len(a:max_lens))
++    call add(alignments, '')
++  endfor
++  let new_line = s:rxSep()
++  let cells = vimwiki#tbl#get_cells(a:line)
++  for idx in range(len(a:max_lens))
++    if idx == a:col1
++      let idx = a:col2
++    elseif idx == a:col2
++      let idx = a:col1
++    endif
++    let cell = cells[idx]
++    let alignment = 'NONE'
++    if cell[strlen(cell)-1] == ':'
++      if cell[0] == ':'
++        let alignment = 'CENTER'
++      else
++        let alignment = 'RIGHT'
++      endif
++    elseif cell[0] == ':'
++      let alignment = 'LEFT'
++    endif
++    let alignments[idx] = alignment
++  endfor
++  return alignments
+ endfunction "}}}
+ 
+-function! s:fmt_sep(max_lens, col1, col2) "{{{
++function! s:fmt_sep(line, max_lens, col1, col2) "{{{
+   let new_line = s:rxSep()
++  let cells = vimwiki#tbl#get_cells(a:line)
++  let alignments = s:fmt_sep_alignments(a:line, a:max_lens, a:col1, a:col2)
+   for idx in range(len(a:max_lens))
+     if idx == a:col1
+       let idx = a:col2
+     elseif idx == a:col2
+       let idx = a:col1
+     endif
+-    let new_line .= s:fmt_cell_sep(a:max_lens[idx]).s:rxSep()
++    let cell = cells[idx]
++    let new_line .= s:fmt_cell_sep(a:max_lens[idx], alignments[idx]).s:rxSep()
+   endfor
+   return new_line
+ endfunction "}}}

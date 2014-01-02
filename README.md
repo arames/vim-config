@@ -17,3 +17,9 @@ other plugins. You will need to clone the repo
     $ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 and install the plugins by launching `vim` and running `:BundleInstall`.
+
+
+### Patches for existing plugins.
+
+Patches for existing plugins are available in `.vim/patches` and can be manually
+applied. See notes in that folder for more details.
