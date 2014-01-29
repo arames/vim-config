@@ -88,6 +88,9 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 " Python indentation
 Bundle 'hynek/vim-python-pep8-indent'
+" Quick file find and open.
+" See `:help command-t` for details and installation instructions.
+Bundle 'wincent/Command-T'
 
 "" Asynchronous commands
 "Bundle 'tpope/vim-dispatch'
