@@ -91,21 +91,9 @@ Bundle 'hynek/vim-python-pep8-indent'
 " Quick file find and open.
 " See `:help command-t` for details and installation instructions.
 Bundle 'wincent/Command-T'
-
-"" Asynchronous commands
-"Bundle 'tpope/vim-dispatch'
-" Use tabs for indentation and spaces for alignment (when using tabs).
-" TODO: Unluckily this breaks /**/ comments closing.
-" Bundle 'vim-scripts/Smart-Tabs'
-" TODO: This one doesn't work for me.
-"Bundle 'vim-scripts/ingo-library'
-"Bundle 'vim-scripts/IndentTab'
-""Bundle 'Valloric/YouCompleteMe'
-"Bundle 'vim-scripts/Align'
-"" Need to work out how to get it working for more complex projects.
-""Bundle 'scrooloose/syntastic'
-" Causes segfaults
-"Bundle 'klen/python-mode'
+" Easy alignment.
+Bundle 'junegunn/vim-easy-align'
+vmap <Enter> <Plug>(EasyAlign)
 
 " Easy jump from diff to file.
 " Note that by default the plugin opens diffs in a new buffer, even if the
@@ -125,6 +113,48 @@ Bundle 'wincent/Command-T'
 Bundle 'vim-scripts/DiffGoFile'
 autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
+
+"" Asynchronous commands
+"Bundle 'tpope/vim-dispatch'
+" Use tabs for indentation and spaces for alignment (when using tabs).
+" TODO: Unluckily this breaks /**/ comments closing.
+" Bundle 'vim-scripts/Smart-Tabs'
+" TODO: This one doesn't work for me.
+"Bundle 'vim-scripts/ingo-library'
+"Bundle 'vim-scripts/IndentTab'
+""Bundle 'Valloric/YouCompleteMe'
+"Bundle 'vim-scripts/Align'
+"" Need to work out how to get it working for more complex projects.
+""Bundle 'scrooloose/syntastic'
+" Causes segfaults
+"Bundle 'klen/python-mode'
+
+" This is fun. Gave it a try but stopped when `git log` turned out not to work
+" well (too big output). Should give it another try someday.
+"" Vim shell.
+"if has('lua')
+"  Bundle 'Shougo/vimproc.vim'
+"  Bundle 'Shougo/neocomplete.vim'
+"  Bundle 'Shougo/vimshell.vim'
+"  " Use neocomplete.
+"  let g:neocomplete#enable_at_startup = 1
+"  " Use smartcase.
+"  let g:neocomplete#enable_smart_case = 1
+"  " Set minimum syntax keyword length.
+"  let g:neocomplete#sources#syntax#min_keyword_length = 3
+"  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"  " Define dictionary.
+"  let g:neocomplete#sources#dictionary#dictionaries = {
+"        \ 'default' : '',
+"        \ 'vimshell' : $HOME.'/.vimshell_hist',
+"        \ 'scheme' : $HOME.'/.gosh_completions'
+"        \ }
+"  " Use current directory as vimshell prompt.
+"  let g:vimshell_prompt_expr =
+"        \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+"  let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+"  let g:vimshell_max_command_history = 100000
+"endif
 
 " Personal wiki
 Bundle 'vim-scripts/vimwiki'
@@ -193,6 +223,7 @@ set completeopt=menu,longest,preview
 set grepprg=grep\ -RHIn\ --exclude=\".tags\"\ --exclude-dir=\".svn\"\ --exclude-dir=\".git\"
 " Grep for the word under the cursor or the selected text.
 nnoremap <F8> :Grep "<C-r><C-w>" .<CR>
+nnoremap <F9> :Grep "<C-r><C-w>" expand('%:p:h')<CR>
 nnoremap <leader>grep :Grep "<C-r><C-w>" .<CR>
 vnoremap <leader>grep "zy:<C-u>Grep "<C-r>z" .<CR>
 " The extended versions cause vim to wait for a further key.
