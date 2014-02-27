@@ -59,6 +59,14 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 command! NukeTrailingWhitespace :%s/\s\+$//e
 "autocmd BufWritePre * :%s/\s\+$//e
 
+" Save undo tree ==========================================================={{{1
+
+set backupdir=~/.vim/undo
+set undofile
+
+" Do not keep undo file for temporary files
+autocmd BufWritePre /tmp/*,~/tmp/* setlocal noundofile 
+
 " Plug-ins ================================================================={{{1
 
 " Use Vundle to manage the plugins.
@@ -113,6 +121,8 @@ vmap <Enter> <Plug>(EasyAlign)
 Bundle 'vim-scripts/DiffGoFile'
 autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
+autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
+autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 
 "" Asynchronous commands
 "Bundle 'tpope/vim-dispatch'
@@ -179,9 +189,10 @@ set nowrap                      " Do not wrap lines.
 set noerrorbells                " No bells.
 "let &sbr = nr2char(8618).' '    " Show ↪ at the beginning of wrapped lines.
 
+set number                      " Display line numbers.
 " Display relative line numbers in normal mode and absolute line numbers
 " in insert mode.
-set relativenumber                      " Display line numbers.
+set relativenumber              " Display relative line numbers.
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
@@ -223,7 +234,7 @@ set completeopt=menu,longest,preview
 set grepprg=grep\ -RHIn\ --exclude=\".tags\"\ --exclude-dir=\".svn\"\ --exclude-dir=\".git\"
 " Grep for the word under the cursor or the selected text.
 nnoremap <F8> :Grep "<C-r><C-w>" .<CR>
-nnoremap <F9> :Grep "<C-r><C-w>" expand('%:p:h')<CR>
+nnoremap <F7> :Grep "<C-r><C-w>" expand('%:p:h')<CR>
 nnoremap <leader>grep :Grep "<C-r><C-w>" .<CR>
 vnoremap <leader>grep "zy:<C-u>Grep "<C-r>z" .<CR>
 " The extended versions cause vim to wait for a further key.
