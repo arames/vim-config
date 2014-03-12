@@ -27,15 +27,26 @@ endif
 
 " Load/save and automatic backup ==========================================={{{1
 
-set backup  " Backup edited files.
-set backupdir=~/.vim/backup
 set viewdir=~/.vim/view
+" Backup edited files.
+set backup
+set backupdir=~/.vim/backup
+" Do not keep a backup of temporary files.
+autocmd BufWritePre /tmp/*,~/tmp/* setlocal nobackup 
+" Also backup the edit history so changes from a previous session can be undone.
+set undofile
+set undodir=~/.vim/undo
+" Do not keep undo file for temporary files.
+autocmd BufWritePre /tmp/*,~/tmp/* setlocal noundofile 
 " Create directories if they don't already exist.
+if !isdirectory(&viewdir)
+  exec "silent !mkdir -p " . &viewdir
+endif
 if !isdirectory(&backupdir)
   exec "silent !mkdir -p " . &backupdir
 endif
-if !isdirectory(&viewdir)
-  exec "silent !mkdir -p " . &viewdir
+if !isdirectory(&undodir)
+  exec "silent !mkdir -p " . &undodir
 endif
 
 " Automatically save and load views.
@@ -55,17 +66,11 @@ set autowrite    " Write a modified buffer on each :next , ...
 " Autodetect filetype on first save.
 autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
+
 " Automatcially delete trailing whitespace on save
 command! NukeTrailingWhitespace :%s/\s\+$//e
 "autocmd BufWritePre * :%s/\s\+$//e
 
-" Save undo tree ==========================================================={{{1
-
-set backupdir=~/.vim/undo
-set undofile
-
-" Do not keep undo file for temporary files
-autocmd BufWritePre /tmp/*,~/tmp/* setlocal noundofile 
 
 " Plug-ins ================================================================={{{1
 
@@ -124,6 +129,12 @@ autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 
+"Bundle 'Rip-Rip/clang_complete'
+"let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
+
+"Bundle 'Valloric/YouCompleteMe'
+"let g:ycm_global_ycm_extra_conf = '~/work/v8/.ycm_extra_config.py'
+
 "" Asynchronous commands
 "Bundle 'tpope/vim-dispatch'
 " Use tabs for indentation and spaces for alignment (when using tabs).
@@ -132,7 +143,6 @@ autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 " TODO: This one doesn't work for me.
 "Bundle 'vim-scripts/ingo-library'
 "Bundle 'vim-scripts/IndentTab'
-""Bundle 'Valloric/YouCompleteMe'
 "Bundle 'vim-scripts/Align'
 "" Need to work out how to get it working for more complex projects.
 ""Bundle 'scrooloose/syntastic'
@@ -175,6 +185,7 @@ let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
 " Required by Vundle.
 filetype plugin indent on
 
+set runtimepath+=~/.vim/indent/
 
 " Presentation ============================================================={{{1
 
@@ -293,6 +304,11 @@ map <C-v><C-]>  :vsp <CR>:exec("tjump ".expand("<cword>"))<CR>
 " Indentation =========================================={{{2
 
 set textwidth=80
+
+" Automatically strip the comment marker when joining automated lines.
+set formatoptions+=j
+" Recognize numbered lists and indent them nicely.
+set formatoptions+=n
 
 command! IndentGoogle      set   expandtab shiftwidth=2 tabstop=2 cinoptions=(0,w1,i4,W4,l1,g1,h1,N-s,t0
 command! IndentLinuxKernel set noexpandtab shiftwidth=8 tabstop=8 cinoptions=(0,w1,i4,W4,l1,g1,h1,N-s,t0,:0
