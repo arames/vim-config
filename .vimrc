@@ -206,6 +206,9 @@ set number                      " Display line numbers.
 set relativenumber              " Display relative line numbers.
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
+" Always display absolute line numbers in the quick-fix windows for easy
+" 'cc <n>' commands.
+autocmd BufRead * if &ft == "qf" | setlocal norelativenumber | endif
 
 " Editing =================================================================={{{1
 
