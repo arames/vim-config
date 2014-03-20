@@ -104,6 +104,8 @@ Bundle 'hynek/vim-python-pep8-indent'
 " Quick file find and open.
 " See `:help command-t` for details and installation instructions.
 Bundle 'wincent/Command-T'
+" Allow opening a file to a specific line with "file:line"
+Bundle 'bogado/file-line'
 " Easy alignment.
 Bundle 'junegunn/vim-easy-align'
 vmap <Enter> <Plug>(EasyAlign)
@@ -139,8 +141,9 @@ autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 "Bundle 'tpope/vim-dispatch'
 " Use tabs for indentation and spaces for alignment (when using tabs).
 " TODO: Unluckily this breaks /**/ comments closing.
-" Bundle 'vim-scripts/Smart-Tabs'
-" TODO: This one doesn't work for me.
+"Bundle 'vim-scripts/Smart-Tabs'
+" TODO: This one doesn't work for me. It only applies after the first
+" non-whitespace character.
 "Bundle 'vim-scripts/ingo-library'
 "Bundle 'vim-scripts/IndentTab'
 "Bundle 'vim-scripts/Align'
