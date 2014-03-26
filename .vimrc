@@ -401,7 +401,17 @@ cnoremap <C-x> <Del>
 
 
 
+" Misc ====================================================================={{{1
 
+" Fix for alt mappings for gnome terminal and terminal using the ESC prefix.
+" Information found at:
+" http://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
 
 
 
