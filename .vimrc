@@ -251,7 +251,7 @@ set completeopt=menu,longest,preview
 set grepprg=grep\ -RHIn\ --exclude=\".tags\"\ --exclude-dir=\".svn\"\ --exclude-dir=\".git\"
 " Grep for the word under the cursor or the selected text.
 nnoremap <F8> :Grep "<C-r><C-w>" .<CR>
-nnoremap <F7> :Grep "<C-r><C-w>" %:p:h
+nnoremap <F7> :Grep "<C-r><C-w>" %:p:h<CR>
 nnoremap <leader>grep :Grep "<C-r><C-w>" .<CR>
 vnoremap <leader>grep "zy:<C-u>Grep "<C-r>z" .<CR>
 " The extended versions cause vim to wait for a further key.
