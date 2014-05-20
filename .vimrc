@@ -135,7 +135,7 @@ autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 "let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
 
 "Bundle 'Valloric/YouCompleteMe'
-"let g:ycm_global_ycm_extra_conf = '~/work/v8/.ycm_extra_config.py'
+"let g:ycm_global_ycm_extra_conf = '~/work/v8/v8/.ycm_extra_config.py'
 
 "" Asynchronous commands
 "Bundle 'tpope/vim-dispatch'
@@ -403,15 +403,17 @@ cnoremap <C-x> <Del>
 
 " Misc ====================================================================={{{1
 
-" Fix for alt mappings for gnome terminal and terminal using the ESC prefix.
-" Information found at:
-" http://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
-let c='a'
-while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  let c = nr2char(1+char2nr(c))
-endw
+" This triggers issues when using macros.
+"
+"" Fix for alt mappings for gnome terminal and terminal using the ESC prefix.
+"" Information found at:
+"" http://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
+"let c='a'
+"while c <= 'z'
+"  exec "set <A-".c.">=\e".c
+"  exec "imap \e".c." <A-".c.">"
+"  let c = nr2char(1+char2nr(c))
+"endw
 
 set timeout ttimeoutlen=50
 
