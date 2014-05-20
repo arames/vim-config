@@ -231,6 +231,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+nnoremap <C-j> <C-e>
+nnoremap <C-k> <C-y>
+
 " Easy bracketing in visual mode.
 " Take care of saving the unnamed register.
 vnoremap <leader>(  :<C-u>let@z=@"<CR>gvs()<Esc>P<Right>%:<C-u>let@"=@z<CR>
