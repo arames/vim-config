@@ -231,8 +231,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <C-j> <C-e>
-nnoremap <C-k> <C-y>
+nnoremap <C-n> <C-e>
+nnoremap <C-m> <C-y>
 
 " Easy bracketing in visual mode.
 " Take care of saving the unnamed register.
