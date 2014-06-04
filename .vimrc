@@ -213,6 +213,12 @@ autocmd InsertLeave * :set relativenumber
 " 'cc <n>' commands.
 autocmd BufRead * if &ft == "qf" | setlocal norelativenumber | endif
 
+
+
+" Custom color groups =================================={{{2
+highlight MessageWarning ctermbg=88 guibg=#902020
+highlight MessageDone    ctermbg=22
+
 " Editing =================================================================={{{1
 
 set backspace=indent,eol,start       " Backspacing over everything in insert mode.
@@ -231,8 +237,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <C-n> <C-e>
-nnoremap <C-m> <C-y>
 
 " Easy bracketing in visual mode.
 " Take care of saving the unnamed register.
@@ -270,11 +274,11 @@ let g:BgGrep_res = '/tmp/vim.grep.res'
 let s:BgGrep_command = 'silent !' . &grepprg
 command! -nargs=* -complete=dir Grep call Async(s:BgGrep_command, 'BgGrepStart()', 'BgGrepDone()', g:BgGrep_res, <f-args>)
 function! BgGrepStart()
-  echohl Error | echo 'Running background grep...' | echohl None
+  echohl MessageWarning | echo 'Running background grep...' | echohl None
 endfunction
 function! BgGrepDone()
   exec('cgetfile' . g:BgGrep_res)
-  echohl Error | echo "Background grep done." | echohl None
+  echohl MessageDone | echo "Background grep done." | echohl None
 endfunction
 
 let g:Jrep_res = '/tmp/vim.jrep.res'
@@ -290,10 +294,10 @@ endfunction
 " --fields=+S registers signature of functions.
 let s:TagsUpdate_command = 'silent !ctags -o .tags -R --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q'
 function! TagsUpdateStart()
-  echohl Error | echo "Building tags..." | echohl None
+  echohl MessageWarning | echo "Building tags..." | echohl None
 endfunction
 function! TagsUpdateDone()
-  echohl Error | echo "Done building tags." | echohl None
+  echohl MessageDone | echo "Done building tags." | echohl None
 endfunction
 command! -nargs=* -complete=dir TagsUpdate call Async(s:TagsUpdate_command, 'TagsUpdateStart()', 'TagsUpdateDone()', '/dev/null', <f-args>)
 
@@ -365,11 +369,11 @@ let g:BgCompilation_res = '/tmp/vim.compilation.res'
 let s:BgCompilation_command = 'silent !' . &makeprg
 command! -nargs=* -complete=dir Make call Async(s:BgCompilation_command, 'BgCompilationStart()', 'BgCompilationDone()', g:BgCompilation_res, <f-args>)
 function! BgCompilationStart()
-  echohl Error | echo 'Running background compilation...' | echohl None
+  echohl MessageWarning | echo 'Running background compilation...' | echohl None
 endfunction
 function! BgCompilationDone()
   exec('cgetfile' . g:BgCompilation_res)
-  echohl Error | echo "Background compilation done." | echohl None
+  echohl MessageDone | echo "Background compilation done." | echohl None
 endfunction
 
 
