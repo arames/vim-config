@@ -200,6 +200,7 @@ colorscheme quiet
 set ruler                       " Show the cursor position all the time.
 set winminheight=0              " Minimum size of splits is 0.
 set nowrap                      " Do not wrap lines.
+set scrolloff=5                 " Show at least 5 lines around the cursor.
 set noerrorbells                " No bells.
 "let &sbr = nr2char(8618).' '    " Show ↪ at the beginning of wrapped lines.
 
