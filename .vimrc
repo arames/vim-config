@@ -12,12 +12,12 @@ set shell=/bin/bash
 set encoding=utf-8
 
 set history=10000               " Keep 10000 lines of command line history.
-set mouse=a                     " Enable the use of the mouse.
+set mouse=a                     " Enable the mouse (eg. for resizing).
 set ignorecase                  " Ignore case in search by default.
-set smartcase                   " Case insensitive if no uppercase in the search.
+set smartcase                   " Case insensitive when not using uppercase.
 set wildignore=*.bak,*.o,*.e,*~ " Wildmenu: ignore these extensions.
 set wildmenu                    " Command-line completion in an enhanced mode.
-set wildmode=list:longest       " Complete longest common string and list alternatives.
+set wildmode=list:longest       " Complete longest common string, then list.
 set showcmd                     " Display incomplete commands.
 
 let hostname = substitute(system('hostname'), '\n', '', '')
@@ -67,130 +67,128 @@ set autowrite    " Write a modified buffer on each :next , ...
 autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 
-" Automatcially delete trailing whitespace on save
-command! NukeTrailingWhitespace :%s/\s\+$//e
-"autocmd BufWritePre * :%s/\s\+$//e
-
-
 " Plug-ins ================================================================={{{1
 
-" Use Vundle to manage the plugins.
-" https://github.com/gmarik/vundle
+" Use Vundle to manage the plugins. See https://github.com/gmarik/vundle for
+" details.
 
-" Required by Vundle.
+" Vundle configuration start ==========================={{{2
 filetype off
+set runtimepath+=~/.vim/bundle/vundle/
 
-set runtimepath+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
-" Required by Vundle.
 Bundle 'gmarik/vundle'
 
-" List of plugins to manage.
-" Quickly move around.
-Bundle 'Lokaltog/vim-easymotion'
-let g:EasyMotion_leader_key = ','
-let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-" Better support for the markdown syntax.
-Bundle 'plasticboy/vim-markdown'
-" Word highlighting.
-Bundle 'vim-scripts/Mark--Karkat'
-" Git integration.
-Bundle 'tpope/vim-fugitive'
-" Display lines git diff status when editing a file in a git repository.
-Bundle 'airblade/vim-gitgutter'
-" Python indentation
-Bundle 'hynek/vim-python-pep8-indent'
-" Quick file find and open.
-" See `:help command-t` for details and installation instructions.
-Bundle 'wincent/Command-T'
-" Allow opening a file to a specific line with "file:line"
-Bundle 'bogado/file-line'
-" Easy alignment.
-Bundle 'junegunn/vim-easy-align'
-" Dart
-Bundle 'dart-lang/dart-vim-plugin'
-vmap <Enter> <Plug>(EasyAlign)
+" List of plugins managed =============================={{{2
 
-" Easy jump from diff to file.
-" Note that by default the plugin opens diffs in a new buffer, even if the
-" associated file is already opened. If the file is already opened in a buffer,
-" the following patch instead jumps to the buffer and to the right location.
-" --- a/ftplugin/diff_gofile.vim
-" +++ b/ftplugin/diff_gofile.vim
-" @@ -92,7 +92,7 @@ function DiffGoFile(doSplit)
+"" Quickly move around.
+"Bundle 'Lokaltog/vim-easymotion'
+"let g:EasyMotion_leader_key = ','
+"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 "
-"         " restore position in diff window
-"         call <SID>RestoreCursorPosition (l:pos)
-" -       call <SID>FindOrCreateBuffer(l:file, a:doSplit, 0)
-" +       call <SID>FindOrCreateBuffer(l:file, a:doSplit, 1)
-"         call <SID>RestoreCursorPosition (l:result[1:])
-"  endfunction
-"  endif
-Bundle 'vim-scripts/DiffGoFile'
-autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
-autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
-autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
-autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
+"" Better support for the markdown syntax.
+"Bundle 'plasticboy/vim-markdown'
+"" Word highlighting.
+"Bundle 'vim-scripts/Mark--Karkat'
+"" Git integration.
+"Bundle 'tpope/vim-fugitive'
+"" Display lines git diff status when editing a file in a git repository.
+"Bundle 'airblade/vim-gitgutter'
+"" Python indentation
+"Bundle 'hynek/vim-python-pep8-indent'
+"" Quick file find and open.
+"" See `:help command-t` for details and installation instructions.
+"Bundle 'wincent/Command-T'
+"" Allow opening a file to a specific line with "file:line"
+"Bundle 'bogado/file-line'
+"" Easy alignment.
+"Bundle 'junegunn/vim-easy-align'
+"" Dart
+"Bundle 'dart-lang/dart-vim-plugin'
+"vmap <Enter> <Plug>(EasyAlign)
+"
+"" Easy jump from diff to file.
+"" Note that by default the plugin opens diffs in a new buffer, even if the
+"" associated file is already opened. If the file is already opened in a buffer,
+"" the following patch instead jumps to the buffer and to the right location.
+"" --- a/ftplugin/diff_gofile.vim
+"" +++ b/ftplugin/diff_gofile.vim
+"" @@ -92,7 +92,7 @@ function DiffGoFile(doSplit)
+""
+""         " restore position in diff window
+""         call <SID>RestoreCursorPosition (l:pos)
+"" -       call <SID>FindOrCreateBuffer(l:file, a:doSplit, 0)
+"" +       call <SID>FindOrCreateBuffer(l:file, a:doSplit, 1)
+""         call <SID>RestoreCursorPosition (l:result[1:])
+""  endfunction
+""  endif
+"Bundle 'vim-scripts/DiffGoFile'
+"autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
+"autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
+"autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
+"autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
+"
+""Bundle 'Rip-Rip/clang_complete'
+""let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
+"
+""Bundle 'Valloric/YouCompleteMe'
+""let g:ycm_global_ycm_extra_conf = '~/work/v8/v8/.ycm_extra_config.py'
+"
+""" Asynchronous commands
+""Bundle 'tpope/vim-dispatch'
+"" Use tabs for indentation and spaces for alignment (when using tabs).
+"" TODO: Unluckily this breaks /**/ comments closing.
+""Bundle 'vim-scripts/Smart-Tabs'
+"" TODO: This one doesn't work for me. It only applies after the first
+"" non-whitespace character.
+""Bundle 'vim-scripts/ingo-library'
+""Bundle 'vim-scripts/IndentTab'
+""Bundle 'vim-scripts/Align'
+""" Need to work out how to get it working for more complex projects.
+"""Bundle 'scrooloose/syntastic'
+"" Causes segfaults
+""Bundle 'klen/python-mode'
+"
+"" This is fun. Gave it a try but stopped when `git log` turned out not to work
+"" well (too big output). Should give it another try someday.
+""" Vim shell.
+""if has('lua')
+""  Bundle 'Shougo/vimproc.vim'
+""  Bundle 'Shougo/neocomplete.vim'
+""  Bundle 'Shougo/vimshell.vim'
+""  " Use neocomplete.
+""  let g:neocomplete#enable_at_startup = 1
+""  " Use smartcase.
+""  let g:neocomplete#enable_smart_case = 1
+""  " Set minimum syntax keyword length.
+""  let g:neocomplete#sources#syntax#min_keyword_length = 3
+""  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+""  " Define dictionary.
+""  let g:neocomplete#sources#dictionary#dictionaries = {
+""        \ 'default' : '',
+""        \ 'vimshell' : $HOME.'/.vimshell_hist',
+""        \ 'scheme' : $HOME.'/.gosh_completions'
+""        \ }
+""  " Use current directory as vimshell prompt.
+""  let g:vimshell_prompt_expr =
+""        \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+""  let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+""  let g:vimshell_max_command_history = 100000
+""endif
+"
+"" Personal wiki
+"Bundle 'vim-scripts/vimwiki'
+"" Use the markdown syntax
+"let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
+"                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
-"Bundle 'Rip-Rip/clang_complete'
-"let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
-
-"Bundle 'Valloric/YouCompleteMe'
-"let g:ycm_global_ycm_extra_conf = '~/work/v8/v8/.ycm_extra_config.py'
-
-"" Asynchronous commands
-"Bundle 'tpope/vim-dispatch'
-" Use tabs for indentation and spaces for alignment (when using tabs).
-" TODO: Unluckily this breaks /**/ comments closing.
-"Bundle 'vim-scripts/Smart-Tabs'
-" TODO: This one doesn't work for me. It only applies after the first
-" non-whitespace character.
-"Bundle 'vim-scripts/ingo-library'
-"Bundle 'vim-scripts/IndentTab'
-"Bundle 'vim-scripts/Align'
-"" Need to work out how to get it working for more complex projects.
-""Bundle 'scrooloose/syntastic'
-" Causes segfaults
-"Bundle 'klen/python-mode'
-
-" This is fun. Gave it a try but stopped when `git log` turned out not to work
-" well (too big output). Should give it another try someday.
-"" Vim shell.
-"if has('lua')
-"  Bundle 'Shougo/vimproc.vim'
-"  Bundle 'Shougo/neocomplete.vim'
-"  Bundle 'Shougo/vimshell.vim'
-"  " Use neocomplete.
-"  let g:neocomplete#enable_at_startup = 1
-"  " Use smartcase.
-"  let g:neocomplete#enable_smart_case = 1
-"  " Set minimum syntax keyword length.
-"  let g:neocomplete#sources#syntax#min_keyword_length = 3
-"  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-"  " Define dictionary.
-"  let g:neocomplete#sources#dictionary#dictionaries = {
-"        \ 'default' : '',
-"        \ 'vimshell' : $HOME.'/.vimshell_hist',
-"        \ 'scheme' : $HOME.'/.gosh_completions'
-"        \ }
-"  " Use current directory as vimshell prompt.
-"  let g:vimshell_prompt_expr =
-"        \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-"  let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-"  let g:vimshell_max_command_history = 100000
-"endif
-
-" Personal wiki
-Bundle 'vim-scripts/vimwiki'
-" Use the markdown syntax
-let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
-
-" Required by Vundle.
+" Vundle configuration end ============================={{{2
 call vundle#end()
 filetype plugin indent on
 
+
+" Other plugin configuration ==========================={{{2
 set runtimepath+=~/.vim/indent/
 
 " Presentation ============================================================={{{1
@@ -225,11 +223,11 @@ highlight MessageDone    ctermbg=22
 
 " Editing =================================================================={{{1
 
-set backspace=indent,eol,start       " Backspacing over everything in insert mode.
-set hlsearch                         " Highlight the last used search pattern.
-set showmatch                        " Briefly display matching bracket.
-set matchtime=5                      " Time (*0.1s) to show matching bracket.
-set incsearch                        " Do incremental searching.
+set backspace=indent,eol,start   " Backspacing over everything in insert mode.
+set hlsearch                     " Highlight the last used search pattern.
+set showmatch                    " Briefly display matching bracket.
+set matchtime=5                  " Time (*0.1s) to show matching bracket.
+set incsearch                    " Perform incremental searching.
 set tags=.tags
 
 " Turn off last search highlighting
@@ -329,7 +327,7 @@ set formatoptions+=n
 
 command! IndentGoogle      set   expandtab shiftwidth=2 tabstop=2 cinoptions=(0,w1,i4,W4,l1,g1,h1,N-s,t0,+4
 command! IndentLinuxKernel set noexpandtab shiftwidth=8 tabstop=8 cinoptions=(0,w1,i4,W4,l1,g1,h1,N-s,t0,:0,+4
-command! IndentStandard IndentGoogle
+command! IndentStandard IndentLinuxKernel
 
 " Set the default indentation.
 IndentStandard
@@ -339,17 +337,12 @@ IndentStandard
 "set list listchars=tab:\.\
 
 "" Override indentation based on the path.
-"command! IndentStandard set et ts=2 sw=2 cino=(0,W4,l1,g1,h1,N-s,t0
-"command! IndentEDK2 set et ts=2 sw=2 cino=(0,W4,l1,g1,h1,N-s,t0
 "" Linux Kernel style.
 "augroup LinuxKernel
 "  autocmd BufRead,BufEnter /work/linux/* IndentLinuxKernel
 "augroup END
 "augroup KernelGit
 "  autocmd BufRead,BufEnter /work/linux/git/* set tags+=/work/linux/git/.tags
-"augroup END
-"augroup EDK2
-"  autocmd BufRead,BufEnter */edk2/* IndentEDK2
 "augroup END
 
 " Misc commands ========================================{{{2
@@ -361,7 +354,7 @@ nmap <leader>date i<C-R>=strftime('%Y-%m-%d')<CR><Esc>
 " Spread parenthesis enclosed arguments, one on each line.
 map <F9> vi(:s/,\s*\([^$]\)/,\r\1/g<CR>vi(=f(%l
 
-"Easy paste of the search pattern without word boundaries.
+" Easy paste of the search pattern without word boundaries.
 imap <C-e>/ <C-r>/<Esc>:let @z=@/<CR>`[v`]:<C-u>s/\%V\\<\\|\\>//g<CR>:let @/=@z<CR>a
 
 " Automatically close the pop-up windown on move.
@@ -383,7 +376,7 @@ endfunction
 
 " Command line ============================================================={{{1
 
-" Pressing shift-; takes too much time.
+" Pressing shift-; takes too much time!
 noremap ; :
 " But the ';' key to re-execute the latest find command is useful
 noremap - ;
@@ -395,7 +388,7 @@ cabbr <expr> %% expand('%:p:h')
 " Easy quote of the searched pattern in command line.
 cmap <C-e>/ "<C-r>/"
 
-" Moving around maps =============={{{3
+" Moving around maps
 
 " Make <C-N> and <C-P> take the beginning of the line into account.
 cmap <C-n> <Down>
@@ -411,22 +404,27 @@ cnoremap <C-w> <C-Right>
 cnoremap <C-x> <Del>
 
 
+command! NukeTrailingWhitespace :%s/\s\+$//e
+" We could automatcially delete trailing whitespace upon save with
+"   autocmd BufWritePre * :%s/\s\+$//e
+" However this becomes annoying when dealing with dirty external projects, when
+" the deletions make it into patches.
+
 
 " Misc ====================================================================={{{1
 
-" This triggers issues when using macros.
-"
-"" Fix for alt mappings for gnome terminal and terminal using the ESC prefix.
-"" Information found at:
-"" http://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
+" The following allows using mappings with the 'alt' key in terminals using the
+" ESC prefix (including gnome terminal). Unluckily this does not always play
+" well with macros.
+" The info was found at:
+"   http://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
 "let c='a'
 "while c <= 'z'
 "  exec "set <A-".c.">=\e".c
 "  exec "imap \e".c." <A-".c.">"
 "  let c = nr2char(1+char2nr(c))
 "endw
-
-set timeout ttimeoutlen=50
+"set timeout ttimeoutlen=50
 
 
 
