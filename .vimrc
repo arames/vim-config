@@ -80,8 +80,8 @@ command! NukeTrailingWhitespace :%s/\s\+$//e
 " Required by Vundle.
 filetype off
 
-set runtimepath+=~/.vim/bundle/vundle/
-call vundle#rc()
+set runtimepath+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " Required by Vundle.
 Bundle 'gmarik/vundle'
@@ -108,6 +108,8 @@ Bundle 'wincent/Command-T'
 Bundle 'bogado/file-line'
 " Easy alignment.
 Bundle 'junegunn/vim-easy-align'
+" Dart
+Bundle 'dart-lang/dart-vim-plugin'
 vmap <Enter> <Plug>(EasyAlign)
 
 " Easy jump from diff to file.
@@ -186,6 +188,7 @@ let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Required by Vundle.
+call vundle#end()
 filetype plugin indent on
 
 set runtimepath+=~/.vim/indent/
