@@ -20,8 +20,8 @@ fi
 
 echo "Copying new files."
 # Copy the new files.
-cp --recursive .vim $BASE_DIR/
-cp --recursive .vimrc $BASE_DIR/
+cp -R .vim $BASE_DIR/
+cp -R .vimrc $BASE_DIR/
 echo "Installing the plugin manager."
 git clone https://github.com/gmarik/vundle.git $TARGET_DIR/.vim/bundle/vundle
 echo "Installing plugins."
