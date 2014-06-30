@@ -10,12 +10,16 @@ BASE_VIMRC=$BASE_DIR/.vimrc
 BASE_VIM_CONFIG=$BASE_DIR/.vim
 echo "Backing up existing configuration to $BACKUP_DIR"
 if [ -f $BASE_VIMRC ] ; then
-	cp --recursive --no-clobber $BASE_VIMRC $BACKUP_DIR/
+	cp -R --no-clobber $BASE_VIMRC $BACKUP_DIR/
 fi
 if [ -f $BASE_VIM_CONFIG ] ; then
-	cp --recursive --no-clobber $BASE_VIM_CONFIG $BACKUP_DIR/
+	cp -R --no-clobber $BASE_VIM_CONFIG $BACKUP_DIR/
 fi
 
+
+echo "Clearing existing config"
+rm -rf $BASE_VIMRC
+rm -rf $BASE_VIM_CONFIG
 
 
 echo "Copying new files."
