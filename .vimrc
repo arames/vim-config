@@ -130,48 +130,10 @@ Plugin 'hynek/vim-python-pep8-indent'
 "
 """ Asynchronous commands
 ""Bundle 'tpope/vim-dispatch'
-"" TODO: This one doesn't work for me. It only applies after the first
-"" non-whitespace character.
-""Bundle 'vim-scripts/ingo-library'
-""Bundle 'vim-scripts/IndentTab'
 ""Bundle 'vim-scripts/Align'
 """ Need to work out how to get it working for more complex projects.
 """Bundle 'scrooloose/syntastic'
-"" Causes segfaults
-""Bundle 'klen/python-mode'
-"
-"" This is fun. Gave it a try but stopped when `git log` turned out not to work
-"" well (too big output). Should give it another try someday.
-""" Vim shell.
-""if has('lua')
-""  Bundle 'Shougo/vimproc.vim'
-""  Bundle 'Shougo/neocomplete.vim'
-""  Bundle 'Shougo/vimshell.vim'
-""  " Use neocomplete.
-""  let g:neocomplete#enable_at_startup = 1
-""  " Use smartcase.
-""  let g:neocomplete#enable_smart_case = 1
-""  " Set minimum syntax keyword length.
-""  let g:neocomplete#sources#syntax#min_keyword_length = 3
-""  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-""  " Define dictionary.
-""  let g:neocomplete#sources#dictionary#dictionaries = {
-""        \ 'default' : '',
-""        \ 'vimshell' : $HOME.'/.vimshell_hist',
-""        \ 'scheme' : $HOME.'/.gosh_completions'
-""        \ }
-""  " Use current directory as vimshell prompt.
-""  let g:vimshell_prompt_expr =
-""        \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-""  let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-""  let g:vimshell_max_command_history = 100000
-""endif
-"
-"" Personal wiki
-"Bundle 'vim-scripts/vimwiki'
-"" Use the markdown syntax
-"let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
-"                     \ 'syntax': 'markdown', 'ext': '.md'}]
+
 
 " Vundle configuration end ============================={{{2
 call vundle#end()
@@ -180,6 +142,42 @@ filetype plugin indent on
 
 " Other plugin configuration ==========================={{{2
 set runtimepath+=~/.vim/indent/
+
+" Dropped plugins ======================================{{{2
+
+" This is fun. A shell within vim.
+" Gave it a try but stopped when `git log` turned out not to work
+" well (too big output). Should give it another try someday.
+"" Vim shell.
+"if has('lua')
+"  Plugin 'Shougo/vimproc.vim'
+"  Plugin 'Shougo/neocomplete.vim'
+"  Plugin 'Shougo/vimshell.vim'
+"  " Use neocomplete.
+"  let g:neocomplete#enable_at_startup = 1
+"  " Use smartcase.
+"  let g:neocomplete#enable_smart_case = 1
+"  " Set minimum syntax keyword length.
+"  let g:neocomplete#sources#syntax#min_keyword_length = 3
+"  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"  " Define dictionary.
+"  let g:neocomplete#sources#dictionary#dictionaries = {
+"        \ 'default' : '',
+"        \ 'vimshell' : $HOME.'/.vimshell_hist',
+"        \ 'scheme' : $HOME.'/.gosh_completions'
+"        \ }
+"  " Use current directory as vimshell prompt.
+"  let g:vimshell_prompt_expr =
+"        \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+"  let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+"  let g:vimshell_max_command_history = 100000
+"endif
+
+"" Personal wiki
+"Bundle 'vim-scripts/vimwiki'
+"" Use the markdown syntax
+"let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
+"                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Presentation ============================================================={{{1
 
