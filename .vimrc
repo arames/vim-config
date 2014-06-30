@@ -78,36 +78,43 @@ set runtimepath+=~/.vim/bundle/vundle/
 
 call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " List of plugins managed =============================={{{2
 
-"" Quickly move around.
-"Bundle 'Lokaltog/vim-easymotion'
-"let g:EasyMotion_leader_key = ','
-"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-"
-"" Better support for the markdown syntax.
-"Bundle 'plasticboy/vim-markdown'
-"" Word highlighting.
-"Bundle 'vim-scripts/Mark--Karkat'
-"" Git integration.
-"Bundle 'tpope/vim-fugitive'
-"" Display lines git diff status when editing a file in a git repository.
-"Bundle 'airblade/vim-gitgutter'
-"" Python indentation
-"Bundle 'hynek/vim-python-pep8-indent'
-"" Quick file find and open.
+" Word highlighting.
+Plugin 'vim-scripts/Mark--Karkat'
+
+" Allow opening a file to a specific line with 'file:line'
+Plugin 'bogado/file-line'
+
+" Quickly move around.
+Plugin 'Lokaltog/vim-easymotion'
+let g:EasyMotion_leader_key = ','
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+" Git integration.
+Plugin 'tpope/vim-fugitive'
+" Display lines git diff status when editing a file in a git repository.
+Plugin 'airblade/vim-gitgutter'
+
+" Use tabs for indentation and spaces for alignment (when using tabs).
+Plugin 'arames/vim-smart-tabs'
+
+" Languages syntax.
+Plugin 'dart-lang/dart-vim-plugin'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'hynek/vim-python-pep8-indent'
+
+" Unused plugins ===================={{3
+
+" Quick file find and open.
 "" See `:help command-t` for details and installation instructions.
 "Bundle 'wincent/Command-T'
-"" Allow opening a file to a specific line with "file:line"
-"Bundle 'bogado/file-line'
 "" Easy alignment.
 "Bundle 'junegunn/vim-easy-align'
-"" Dart
-"Bundle 'dart-lang/dart-vim-plugin'
 "vmap <Enter> <Plug>(EasyAlign)
-"
+
 "" Easy jump from diff to file.
 "" Note that by default the plugin opens diffs in a new buffer, even if the
 "" associated file is already opened. If the file is already opened in a buffer,
@@ -137,9 +144,6 @@ Bundle 'gmarik/vundle'
 "
 """ Asynchronous commands
 ""Bundle 'tpope/vim-dispatch'
-"" Use tabs for indentation and spaces for alignment (when using tabs).
-"" TODO: Unluckily this breaks /**/ comments closing.
-""Bundle 'vim-scripts/Smart-Tabs'
 "" TODO: This one doesn't work for me. It only applies after the first
 "" non-whitespace character.
 ""Bundle 'vim-scripts/ingo-library'
