@@ -93,6 +93,13 @@ Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
+Plugin 'arames/vim-diffgofile'
+let g:diffgofile_goto_existing_buffer = 1
+autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
+autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
+autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
+autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
+
 " Git integration.
 Plugin 'tpope/vim-fugitive'
 " Display lines git diff status when editing a file in a git repository.
@@ -130,11 +137,6 @@ Plugin 'hynek/vim-python-pep8-indent'
 ""         call <SID>RestoreCursorPosition (l:result[1:])
 ""  endfunction
 ""  endif
-"Bundle 'vim-scripts/DiffGoFile'
-"autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
-"autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
-"autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
-"autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 "
 ""Bundle 'Rip-Rip/clang_complete'
 ""let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
