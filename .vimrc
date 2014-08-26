@@ -106,12 +106,19 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 
 " Use tabs for indentation and spaces for alignment (when using tabs).
-Plugin 'arames/vim-smart-tabs'
+" TODO: This messes up and leaves whitespaces on empty lines.
+"Plugin 'arames/vim-smart-tabs'
 
 " Languages syntax.
 Plugin 'dart-lang/dart-vim-plugin'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'hynek/vim-python-pep8-indent'
+
+" Personal wiki
+Bundle 'vim-scripts/vimwiki'
+" Use the markdown syntax
+let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Unused plugins ===================={{3
 
@@ -172,12 +179,6 @@ set runtimepath+=~/.vim/indent/
 "  let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 "  let g:vimshell_max_command_history = 100000
 "endif
-
-"" Personal wiki
-"Bundle 'vim-scripts/vimwiki'
-"" Use the markdown syntax
-"let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
-"                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Presentation ============================================================={{{1
 
@@ -396,6 +397,14 @@ command! NukeTrailingWhitespace :%s/\s\+$//e
 "   autocmd BufWritePre * :%s/\s\+$//e
 " However this becomes annoying when dealing with dirty external projects, when
 " the deletions make it into patches.
+
+
+" Projects ================================================================={{{1
+
+augroup ART
+  autocmd BufRead,BufEnter */art/* IndentGoogle
+  autocmd BufRead,BufEnter */art/* exec "set tags+=" . substitute(system('git rev-parse --show-toplevel'), '\n', '', 'g') . "/.tags"
+augroup END
 
 
 " Misc ====================================================================={{{1
