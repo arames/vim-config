@@ -120,11 +120,16 @@ Bundle 'vim-scripts/vimwiki'
 let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
+" Quick file find and open.
+" See `:help command-t` for details and installation instructions.
+Bundle 'wincent/Command-T'
+nnoremap <silent> sp :sp<CR>:CommandT<CR>
+nnoremap <silent> vsp :vsplit<CR>:CommandT<CR>
+let g:CommandTMaxHeight=10
+let g:CommandTMatchWindowReverse=1
+
 " Unused plugins ===================={{3
 
-" Quick file find and open.
-"" See `:help command-t` for details and installation instructions.
-"Bundle 'wincent/Command-T'
 "" Easy alignment.
 "Bundle 'junegunn/vim-easy-align'
 "vmap <Enter> <Plug>(EasyAlign)
