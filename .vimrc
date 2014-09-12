@@ -115,18 +115,23 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'hynek/vim-python-pep8-indent'
 
 " Personal wiki
-Bundle 'vim-scripts/vimwiki'
+Plugin 'vim-scripts/vimwiki'
 " Use the markdown syntax
 let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Quick file find and open.
 " See `:help command-t` for details and installation instructions.
-Bundle 'wincent/Command-T'
+Plugin 'wincent/Command-T'
 nnoremap <silent> sp :sp<CR>:CommandT<CR>
 nnoremap <silent> vsp :vsplit<CR>:CommandT<CR>
 let g:CommandTMaxHeight=10
 let g:CommandTMatchWindowReverse=1
+
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_config.py'
+let g:ycm_confirm_extra_conf = 0
+nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
 
 " Unused plugins ===================={{3
 
@@ -136,9 +141,6 @@ let g:CommandTMatchWindowReverse=1
 
 ""Bundle 'Rip-Rip/clang_complete'
 ""let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
-"
-""Bundle 'Valloric/YouCompleteMe'
-""let g:ycm_global_ycm_extra_conf = '~/work/v8/v8/.ycm_extra_config.py'
 "
 """ Asynchronous commands
 ""Bundle 'tpope/vim-dispatch'
@@ -288,7 +290,7 @@ endfunction
 " Update tags file.
 " --c-kind=+p considers function definitions.
 " --fields=+S registers signature of functions.
-let s:TagsUpdate_command = 'silent !ctags -o .tags -R --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q'
+let s:TagsUpdate_command = 'silent !ctags -o .tags --recurse --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q'
 function! TagsUpdateStart()
   echohl MessageWarning | echo "Building tags..." | echohl None
 endfunction
