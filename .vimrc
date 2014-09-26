@@ -105,6 +105,10 @@ Plugin 'tpope/vim-fugitive'
 " Display lines git diff status when editing a file in a git repository.
 Plugin 'airblade/vim-gitgutter'
 
+" Switch between header and implementation files.
+Plugin 'vim-scripts/a.vim'
+nnoremap <leader>hh :A<CR>
+
 " Use tabs for indentation and spaces for alignment (when using tabs).
 " TODO: This messes up and leaves whitespaces on empty lines.
 "Plugin 'arames/vim-smart-tabs'
@@ -129,8 +133,9 @@ let g:CommandTMaxHeight=10
 let g:CommandTMatchWindowReverse=1
 
 Plugin 'Valloric/YouCompleteMe'
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_config.py'
-let g:ycm_confirm_extra_conf = 0
+" Unless it is whitelisted, ask for confirmation to load a config file.
+let g:ycm_confirm_extra_conf = 1
+let g:ycm_extra_conf_globlist = ['~/work/android/aosp/art/*', '~/work/android/local/art/*', '~/work/vixl/*', ]
 nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
 
 " Unused plugins ===================={{3
