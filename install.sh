@@ -25,7 +25,7 @@ rm -rf $BASE_VIM_CONFIG
 echo "Copying new files."
 # Copy the new files.
 cp -R .vim $BASE_DIR/
-cp -R .vimrc $BASE_DIR/
+ln -s `pwd`/.vimrc $BASE_DIR/.vimrc
 echo "Installing the plugin manager."
 git clone https://github.com/gmarik/vundle.git $TARGET_DIR/.vim/bundle/vundle
 echo "Installing plugins."

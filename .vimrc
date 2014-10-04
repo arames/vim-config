@@ -132,11 +132,13 @@ nnoremap <silent> vsp :vsplit<CR>:CommandT<CR>
 let g:CommandTMaxHeight=10
 let g:CommandTMatchWindowReverse=1
 
-Plugin 'Valloric/YouCompleteMe'
-" Unless it is whitelisted, ask for confirmation to load a config file.
-let g:ycm_confirm_extra_conf = 1
-let g:ycm_extra_conf_globlist = ['~/work/android/aosp/art/*', '~/work/android/local/art/*', '~/work/vixl/*', ]
-nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
+if has('python')
+	Plugin 'Valloric/YouCompleteMe'
+	" Unless it is whitelisted, ask for confirmation to load a config file.
+	let g:ycm_confirm_extra_conf = 1
+	let g:ycm_extra_conf_globlist = ['~/work/android/aosp/art/*', '~/work/android/local/art/*', '~/work/vixl/*', ]
+	nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
+endif
 
 " Unused plugins ===================={{3
 
