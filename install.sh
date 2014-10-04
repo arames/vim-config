@@ -5,15 +5,15 @@ TARGET_DIR=$BASE_DIR
 
 # Backup existing configuration.
 BACKUP_DIR=backup.`date +%F-%R`
-mkdir --parents $BACKUP_DIR
+mkdir -p $BACKUP_DIR
 BASE_VIMRC=$BASE_DIR/.vimrc
 BASE_VIM_CONFIG=$BASE_DIR/.vim
 echo "Backing up existing configuration to $BACKUP_DIR"
 if [ -f $BASE_VIMRC ] ; then
-	cp -R --no-clobber $BASE_VIMRC $BACKUP_DIR/
+	cp -R $BASE_VIMRC $BACKUP_DIR/
 fi
-if [ -f $BASE_VIM_CONFIG ] ; then
-	cp -R --no-clobber $BASE_VIM_CONFIG $BACKUP_DIR/
+if [ -d $BASE_VIM_CONFIG ] ; then
+	cp -R $BASE_VIM_CONFIG $BACKUP_DIR/
 fi
 
 
