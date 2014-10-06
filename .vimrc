@@ -110,8 +110,7 @@ Plugin 'vim-scripts/a.vim'
 nnoremap <leader>hh :A<CR>
 
 " Use tabs for indentation and spaces for alignment (when using tabs).
-" TODO: This messes up and leaves whitespaces on empty lines.
-"Plugin 'arames/vim-smart-tabs'
+Plugin 'arames/vim-sem-tabs'
 
 " Languages syntax.
 Plugin 'dart-lang/dart-vim-plugin'
