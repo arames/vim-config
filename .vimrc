@@ -137,6 +137,11 @@ if has('python')
 	let g:ycm_confirm_extra_conf = 1
 	let g:ycm_extra_conf_globlist = ['~/work/android/aosp/art/*', '~/work/android/local/art/*', '~/work/vixl/*', ]
 	nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
+	nnoremap ]] :lnext<CR>
+	nnoremap [[ :lprevious<CR>
+	" Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
+	let g:ycm_key_list_select_completion = ['<Down>']
+	let g:ycm_key_list_previous_completion = ['<Up>']
 endif
 
 " Unused plugins ===================={{3
