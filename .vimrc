@@ -109,9 +109,6 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/a.vim'
 nnoremap <leader>hh :A<CR>
 
-" Use tabs for indentation and spaces for alignment (when using tabs).
-Plugin 'arames/vim-sem-tabs'
-
 " Languages syntax.
 Plugin 'dart-lang/dart-vim-plugin'
 Plugin 'plasticboy/vim-markdown'
