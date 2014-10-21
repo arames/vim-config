@@ -199,8 +199,6 @@ set runtimepath+=~/.vim/indent/
 
 set t_Co=256                    " 256 colors.
 syntax on                       " Enable syntax highlighting.
-" Custom color scheme, based on the jellybeans color scheme available at
-"   http://www.vim.org/scripts/script.php?script_id=2555
 colorscheme quiet
 set ruler                       " Show the cursor position all the time.
 set winminheight=0              " Minimum size of splits is 0.
