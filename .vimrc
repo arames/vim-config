@@ -88,6 +88,9 @@ Plugin 'vim-scripts/Mark--Karkat'
 " Allow opening a file to a specific line with 'file:line'
 Plugin 'bogado/file-line'
 
+" Easy access to an undo tree.
+Plugin 'mbbill/undotree'
+
 " Quickly move around.
 Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = ','
