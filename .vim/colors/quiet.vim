@@ -39,10 +39,11 @@ hi Search    ctermfg=204 ctermbg=NONE cterm=underline
 hi PreProc   ctermfg=12
 
 "hi Statement ctermfg=179 ctermbg=NONE
-hi! link Statement Normal
-hi! link Type      Normal
-hi! link Constant  Normal
-hi! link Number    Normal
+hi! link Statement  Normal
+hi! link Identifier Normal
+hi! link Type       Normal
+hi! link Constant   Normal
+hi! link Number     Normal
 
 hi Comment   ctermfg=245 ctermbg=NONE
 hi Todo      ctermfg=233 ctermbg=172
