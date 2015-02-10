@@ -425,6 +425,8 @@ augroup END
 
 " Misc ====================================================================={{{1
 
+:autocmd BufNew,BufRead SConstruct setf python
+
 " The following allows using mappings with the 'alt' key in terminals using the
 " ESC prefix (including gnome terminal). Unluckily this does not always play
 " well with macros.
