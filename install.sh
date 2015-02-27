@@ -23,14 +23,19 @@ rm -rf $BASE_VIM_CONFIG
 
 
 echo "Copying new files."
-# Copy the new files.
 cp -R .vim $BASE_DIR/
 ln -s `pwd`/.vimrc $BASE_DIR/.vimrc
+
 echo "Installing the plugin manager."
 git clone https://github.com/gmarik/vundle.git $TARGET_DIR/.vim/bundle/vundle
+
 echo "Installing plugins."
 vim -c BundleInstall -c qall
 
+echo "Minor fixes to the config."
+# Use the diffgofile plugin for git diffs.
+mkdir -p ~/.vim/ftplugin/
+ln -s ~/.vim/bundle/vim-diffgofile/ftplugin/diff_gofile.vim ~/.vim/ftplugin/git_diffgofile.vim
 
 
 echo "Done."
