@@ -132,16 +132,21 @@ let g:CommandTMaxHeight=10
 let g:CommandTMatchWindowReverse=1
 
 if has('python')
-	Plugin 'Valloric/YouCompleteMe'
-	" Unless it is whitelisted, ask for confirmation to load a config file.
-	let g:ycm_confirm_extra_conf = 1
-	let g:ycm_extra_conf_globlist = ['~/work/android/aosp/art/*', '~/work/android/local/art/*', '~/work/vixl/*', ]
-	nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
-	nnoremap ]] :lnext<CR>
-	nnoremap [[ :lprevious<CR>
-	" Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
-	let g:ycm_key_list_select_completion = ['<Down>']
-	let g:ycm_key_list_previous_completion = ['<Up>']
+  Plugin 'Valloric/YouCompleteMe'
+  " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
+  " others, ask for confirmation before loading.
+  let g:ycm_confirm_extra_conf = 1
+  if filereadable('~/.vim.ycm_whitelist')
+    " This file should look something like:
+    "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
+    source ~/.vim.ycm_whitelist
+  endif
+  nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
+  nnoremap ]] :lnext<CR>
+  nnoremap [[ :lprevious<CR>
+  " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
+  let g:ycm_key_list_select_completion = ['<Down>']
+  let g:ycm_key_list_previous_completion = ['<Up>']
 endif
 
 " Unused plugins ===================={{3
@@ -420,6 +425,10 @@ command! NukeTrailingWhitespace :%s/\s\+$//e
 augroup ART
   autocmd BufRead,BufEnter */art/* IndentGoogle
   autocmd BufRead,BufEnter */art/* exec "set tags+=" . substitute(system('git rev-parse --show-toplevel'), '\n', '', 'g') . "/.tags"
+augroup END
+
+augroup VIXL
+  autocmd BufRead,BufEnter */vixl/* IndentGoogle
 augroup END
 
 
