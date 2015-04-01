@@ -136,7 +136,7 @@ if has('python')
   " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
   " others, ask for confirmation before loading.
   let g:ycm_confirm_extra_conf = 1
-  if filereadable('~/.vim.ycm_whitelist')
+  if filereadable(resolve(expand("~/.vim.ycm_whitelist")))
     " This file should look something like:
     "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
     source ~/.vim.ycm_whitelist
