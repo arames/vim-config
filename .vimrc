@@ -345,15 +345,6 @@ IndentDefault
 ""  Show indentation guides.
 "set list listchars=tab:\.\
 
-"" Override indentation based on the path.
-"" Linux Kernel style.
-"augroup LinuxKernel
-"  autocmd BufRead,BufEnter /work/linux/* IndentLinuxKernel
-"augroup END
-"augroup KernelGit
-"  autocmd BufRead,BufEnter /work/linux/git/* set tags+=/work/linux/git/.tags
-"augroup END
-
 " Misc commands ========================================{{{2
 
 " Insert current date.
@@ -431,10 +422,18 @@ augroup VIXL
   autocmd BufRead,BufEnter */vixl/* IndentGoogle
 augroup END
 
+"" Linux Kernel style.
+"augroup LinuxKernel
+"  autocmd BufRead,BufEnter /work/linux/* IndentLinuxKernel
+"augroup END
+"augroup KernelGit
+"  autocmd BufRead,BufEnter /work/linux/git/* set tags+=/work/linux/git/.tags
+"augroup END
+
 
 " Misc ====================================================================={{{1
 
-:autocmd BufNew,BufRead SConstruct setf python
+autocmd BufEnter SConstruct setf python
 
 " The following allows using mappings with the 'alt' key in terminals using the
 " ESC prefix (including gnome terminal). Unluckily this does not always play
