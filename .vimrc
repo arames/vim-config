@@ -3,13 +3,22 @@
 "
 " The configuration is targeted at and has only been tested on terminal vim.
 
-" Use Vim settings, rather then Vi settings.
-" This must be first, because it changes other options as a side effect.
-set nocompatible
+if !has('nvim')
+  " Use Vim settings, rather then Vi settings.
+  " This must be first, because it changes other options as a side effect.
+  " Neovim has removed this.
+  set nocompatible
+endif
 
-set shell=/bin/bash
+if !has('nvim')
+  " This has been removed in neovim.
+  set shell=/bin/bash
+endif
 
-set encoding=utf-8
+if !has('nvim')
+  " This is the default in neovim.
+  set encoding=utf-8
+endif
 
 set history=10000               " Keep 10000 lines of command line history.
 set mouse=a                     " Enable the mouse (eg. for resizing).
@@ -27,17 +36,25 @@ endif
 
 " Load/save and automatic backup ==========================================={{{1
 
-set viewdir=~/.vim/view
-" Backup edited files.
+if has('nvim')
+  set viewdir=~/.nvim/view
+  set backupdir=~/.nvim/backup
+  set undodir=~/.nvim/undo
+else
+  set viewdir=~/.vim/view
+  set backupdir=~/.vim/backup
+  set undodir=~/.vim/undo
+endif
+
+
+" Backup files and keep a history of the edits so changes form a previous
+" session can be undone.
 set backup
-set backupdir=~/.vim/backup
+set undofile
 " Do not keep a backup of temporary files.
 autocmd BufWritePre /tmp/*,~/tmp/* setlocal nobackup 
-" Also backup the edit history so changes from a previous session can be undone.
-set undofile
-set undodir=~/.vim/undo
-" Do not keep undo file for temporary files.
 autocmd BufWritePre /tmp/*,~/tmp/* setlocal noundofile 
+
 " Create directories if they don't already exist.
 if !isdirectory(&viewdir)
   exec "silent !mkdir -p " . &viewdir
@@ -51,7 +68,7 @@ endif
 
 " Automatically save and load views.
 autocmd BufWinLeave,BufWrite *.* mkview
-autocmd BufWinEnter *.* silent loadview
+autocmd BufWinEnter *.* silent! loadview
 
 " Jump to last known cursor position when editing a file.
 " Don't do it when the position is invalid or when inside an event handler
@@ -67,7 +84,7 @@ set autowrite    " Write a modified buffer on each :next , ...
 autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 
-" Plug-ins ================================================================={{{1
+" Plugins =================================================================={{{1
 
 " Use Vundle to manage the plugins. See https://github.com/gmarik/vundle for
 " details.
@@ -170,9 +187,6 @@ call vundle#end()
 filetype plugin indent on
 
 
-" Other plugin configuration ==========================={{{2
-set runtimepath+=~/.vim/indent/
-
 " Dropped plugins ======================================{{{2
 
 " This is fun. A shell within vim.
@@ -205,7 +219,17 @@ set runtimepath+=~/.vim/indent/
 
 " Presentation ============================================================={{{1
 
-set t_Co=256                    " 256 colors.
+" Uncommenting this will allow specifying 24bit colors. The very simple color
+" scheme used does not need this.
+"if has('nvim')
+"  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"endif
+
+if !has('nvim')
+  " neovim looks at the environment variable `$TERM`, which is expected to
+  " contain `256color`.
+  set t_Co=256                  " 256 colors.
+endif
 syntax on                       " Enable syntax highlighting.
 colorscheme quiet
 set ruler                       " Show the cursor position all the time.
@@ -435,6 +459,10 @@ augroup END
 
 autocmd BufEnter SConstruct setf python
 
+map <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " The following allows using mappings with the 'alt' key in terminals using the
 " ESC prefix (including gnome terminal). Unluckily this does not always play
 " well with macros.
@@ -452,3 +480,4 @@ autocmd BufEnter SConstruct setf python
 
 " .vimrc specific options =================================================={{{1
 " vim: set foldmethod=marker:
+" nvim: set foldmethod=marker:
