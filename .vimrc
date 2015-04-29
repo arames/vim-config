@@ -378,6 +378,13 @@ function! BgCompilationDone()
 endfunction
 
 
+" Terminal ================================================================={{{1
+
+if has('nvim')
+  tnoremap <C-[> <C-\><C-n>
+endif
+
+
 " Command line ============================================================={{{1
 
 " Pressing shift-; takes too much time!
