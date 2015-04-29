@@ -91,7 +91,17 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 " Vundle configuration start ==========================={{{2
 filetype off
-set runtimepath+=~/.vim/bundle/vundle/
+if has('nvim')
+  set runtimepath+=~/.nvim/bundle/vundle/
+else
+  set runtimepath+=~/.vim/bundle/vundle/
+endif
+
+if has('nvim')
+  call vundle#rc('~/.nvim/bundle')
+else
+  call vundle#rc('~/.vim/bundle')
+endif
 
 call vundle#begin()
 
@@ -169,53 +179,23 @@ endif
 " Unused plugins ===================={{3
 
 "" Easy alignment.
-"Bundle 'junegunn/vim-easy-align'
+"Plugin 'junegunn/vim-easy-align'
 "vmap <Enter> <Plug>(EasyAlign)
 
-""Bundle 'Rip-Rip/clang_complete'
+""Plugin 'Rip-Rip/clang_complete'
 ""let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
 "
 """ Asynchronous commands
-""Bundle 'tpope/vim-dispatch'
-""Bundle 'vim-scripts/Align'
+""Plugin 'tpope/vim-dispatch'
+""Plugin 'vim-scripts/Align'
 """ Need to work out how to get it working for more complex projects.
-"""Bundle 'scrooloose/syntastic'
+"""Plugin 'scrooloose/syntastic'
 
 
 " Vundle configuration end ============================={{{2
 call vundle#end()
 filetype plugin indent on
 
-
-" Dropped plugins ======================================{{{2
-
-" This is fun. A shell within vim.
-" Gave it a try but stopped when `git log` turned out not to work
-" well (too big output). Should give it another try someday.
-"" Vim shell.
-"if has('lua')
-"  Plugin 'Shougo/vimproc.vim'
-"  Plugin 'Shougo/neocomplete.vim'
-"  Plugin 'Shougo/vimshell.vim'
-"  " Use neocomplete.
-"  let g:neocomplete#enable_at_startup = 1
-"  " Use smartcase.
-"  let g:neocomplete#enable_smart_case = 1
-"  " Set minimum syntax keyword length.
-"  let g:neocomplete#sources#syntax#min_keyword_length = 3
-"  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-"  " Define dictionary.
-"  let g:neocomplete#sources#dictionary#dictionaries = {
-"        \ 'default' : '',
-"        \ 'vimshell' : $HOME.'/.vimshell_hist',
-"        \ 'scheme' : $HOME.'/.gosh_completions'
-"        \ }
-"  " Use current directory as vimshell prompt.
-"  let g:vimshell_prompt_expr =
-"        \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-"  let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-"  let g:vimshell_max_command_history = 100000
-"endif
 
 " Presentation ============================================================={{{1
 
