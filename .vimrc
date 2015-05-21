@@ -147,7 +147,7 @@ Plugin 'hynek/vim-python-pep8-indent'
 " Personal wiki
 Plugin 'vim-scripts/vimwiki'
 " Use the markdown syntax
-let g:vimwiki_list = [{'path': '~/repos/vimwiki/',
+let g:vimwiki_list = [{'path': '~/tools/vimwiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Quick file find and open.
@@ -169,8 +169,6 @@ if has('python')
     source ~/.vim.ycm_whitelist
   endif
   nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
-  nnoremap ]] :lnext<CR>
-  nnoremap [[ :lprevious<CR>
   " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
   let g:ycm_key_list_select_completion = ['<Down>']
   let g:ycm_key_list_previous_completion = ['<Up>']
@@ -446,7 +444,7 @@ augroup END
 
 autocmd BufEnter SConstruct setf python
 
-map <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
