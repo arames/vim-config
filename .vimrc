@@ -36,11 +36,14 @@ endif
 
 " Load/save and automatic backup ==========================================={{{1
 
+
 if has('nvim')
+  set directory=~/.nvim/swap
   set viewdir=~/.nvim/view
   set backupdir=~/.nvim/backup
   set undodir=~/.nvim/undo
 else
+  set directory=~/.vim/swap
   set viewdir=~/.vim/view
   set backupdir=~/.vim/backup
   set undodir=~/.vim/undo
@@ -56,6 +59,9 @@ autocmd BufWritePre /tmp/*,~/tmp/* setlocal nobackup
 autocmd BufWritePre /tmp/*,~/tmp/* setlocal noundofile 
 
 " Create directories if they don't already exist.
+if !isdirectory(&directory)
+  exec "silent !mkdir -p " . &directory
+endif
 if !isdirectory(&viewdir)
   exec "silent !mkdir -p " . &viewdir
 endif
