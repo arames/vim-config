@@ -115,6 +115,9 @@ Plugin 'gmarik/vundle'
 
 " List of plugins managed =============================={{{2
 
+" Asynchronous grep.
+Plugin 'arames/vim-async-grep'
+
 " Word highlighting.
 Plugin 'vim-scripts/Mark--Karkat'
 
@@ -288,26 +291,6 @@ vnoremap <leader>grep<Space> "zy:<C-u>Grep "<C-r>z" .<CR>
 " Grep for text with word boundaries.
 nnoremap <leader>grepw :Grep "\\<<C-r><C-w>\\>" .<CR>
 vnoremap <leader>grepw "zy:<C-u>Grep "\\<<C-r>z\\>" .<CR>
-
-" Background grep
-let g:BgGrep_res = '/tmp/vim.grep.res'
-let s:BgGrep_command = 'silent !' . &grepprg
-command! -nargs=* -complete=dir Grep call Async(s:BgGrep_command, 'BgGrepStart()', 'BgGrepDone()', g:BgGrep_res, <f-args>)
-function! BgGrepStart()
-  echohl MessageWarning | echo 'Running background grep...' | echohl None
-endfunction
-function! BgGrepDone()
-  exec('cgetfile' . g:BgGrep_res)
-  echohl MessageDone | echo "Background grep done." | echohl None
-endfunction
-
-let g:Jrep_res = '/tmp/vim.jrep.res'
-let s:Jrep_command = '!jrep -RHn'
-command! -nargs=* -complete=dir Jrep call JrepFunction(<f-args>)
-function! JrepFunction(...)
-  exec(s:Jrep_command. ' ' . join(a:000, ' ') . ' &> ' . g:Jrep_res)
-  exec('cgetfile' . g:Jrep_res)
-endfunction
 
 " Update tags file.
 " --c-kind=+p considers function definitions.
