@@ -148,6 +148,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/a.vim'
 nnoremap <leader>hh :A<CR>
 
+" Diff between selected blocks of code.
+Plugin 'AndrewRadev/linediff.vim'
+
 " Languages syntax.
 Plugin 'dart-lang/dart-vim-plugin'
 Plugin 'plasticboy/vim-markdown'
