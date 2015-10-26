@@ -12,7 +12,7 @@ safe() {
 }
 
 
-if [ $# -ne 1 ]; then
+if [ $# -ne 1 ] || [ "x$1" = "x--help" ] || [ "x$1" = "x-h" ]; then
 	error "Usage: $0 (vim|nvim)"
 fi
 
