@@ -12,7 +12,7 @@ safe() {
 }
 
 
-if [ $# -ne 1 ] || [ "x$1" = "x--help" ] || [ "x$1" = "x-h" ]; then
+if [ $# -ne 1 ] || [ "x$1" = "x--help" ] || [ "x$1" = "x-h" ] || [ "x$1" != "xvim" ] && [ "x$1" != "xnvim" ]; then
 	error "Usage: $0 (vim|nvim)"
 fi
 
@@ -32,8 +32,17 @@ install() {
 		error "Wrong number of arguments."
 	fi
 	VIM=$1
-	VIMDIR=$TARGET_DIR/.${VIM}
-	VIMRC=$TARGET_DIR/.${VIM}rc
+
+	if [ "x$VIM" == "xvim" ]; then
+		VIMDIR=$TARGET_DIR/.vim
+		VIMRC=$TARGET_DIR/.vimrc
+	else
+		if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then 
+			error "\$XDG_CONFIG_HOME and/or \$XDG_DATA_HOME not set. Have a look at https://neovim.io/doc/user/vim_diff.html"
+		fi
+		VIMDIR=$XDG_CONFIG_HOME/nvim
+		VIMRC=$VIMDIR/init.vim
+	fi
 
 	echo "Backing up existing configuration to $BACKUP_DIR"
 	if [ -f $VIMRC ] ; then

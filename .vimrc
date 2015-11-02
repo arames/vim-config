@@ -38,10 +38,10 @@ endif
 
 
 if has('nvim')
-  set directory=~/.nvim/swap
-  set viewdir=~/.nvim/view
-  set backupdir=~/.nvim/backup
-  set undodir=~/.nvim/undo
+  set directory=~/.config/nvim/swap
+  set viewdir=~/.config/nvim/view
+  set backupdir=~/.config/nvim/backup
+  set undodir=~/.config/nvim/undo
 else
   set directory=~/.vim/swap
   set viewdir=~/.vim/view
@@ -98,13 +98,13 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 " Vundle configuration start ==========================={{{2
 filetype off
 if has('nvim')
-  set runtimepath+=~/.nvim/bundle/vundle/
+  set runtimepath+=~/.config/nvim/bundle/vundle/
 else
   set runtimepath+=~/.vim/bundle/vundle/
 endif
 
 if has('nvim')
-  call vundle#rc('~/.nvim/bundle')
+  call vundle#rc('~/.config/nvim/bundle')
 else
   call vundle#rc('~/.vim/bundle')
 endif
