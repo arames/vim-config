@@ -115,6 +115,12 @@ Plugin 'gmarik/vundle'
 
 " List of plugins managed =============================={{{2
 
+" Case-sensitive search and replace (and more!).
+Plugin 'tpope/vim-abolish'
+
+" Easy commenting and uncommenting.
+Plugin 'tpope/vim-commentary'
+
 " Asynchronous grep.
 Plugin 'arames/vim-async-grep'
 
