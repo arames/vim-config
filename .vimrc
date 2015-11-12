@@ -282,18 +282,32 @@ set completeopt=menu,longest,preview
 
 " Grep in current directory.
 set grepprg=grep\ -RHIn\ --exclude=\".tags\"\ --exclude-dir=\".svn\"\ --exclude-dir=\".git\"
-" Grep for the word under the cursor or the selected text.
-nnoremap <F8> :Grep "<C-r><C-w>" .<CR>
-nnoremap <F7> :Grep "<C-r><C-w>" %:p:h<CR>
-nnoremap <leader>grep :Grep "<C-r><C-w>" .<CR>
-vnoremap <leader>grep "zy:<C-u>Grep "<C-r>z" .<CR>
-" The extended versions cause vim to wait for a further key.
-" If the wait is too long press space!
-nnoremap <leader>grep<Space> :Grep "<C-r><C-w>" .<CR>
-vnoremap <leader>grep<Space> "zy:<C-u>Grep "<C-r>z" .<CR>
-" Grep for text with word boundaries.
-nnoremap <leader>grepw :Grep "\\<<C-r><C-w>\\>" .<CR>
-vnoremap <leader>grepw "zy:<C-u>Grep "\\<<C-r>z\\>" .<CR>
+" Grep for the word under the cursor.
+nnoremap K :Grep "\\<<C-r><C-w>\\>" .<CR>
+nmap <leader>grep K
+" Versions suffixed with `l` for the location list cause vim to wait for keys
+" after `grep`. Provide versions with extra characters to allow skipping the
+" wait.
+nmap <leader>grepc K
+nmap <leader>grep<Space> K
+nmap <leader>grep<CR> K
+" Grep in the current file's path.
+nmap <leader>grepd :Grep "\\<<C-r><C-w>\\>" %:p:h<CR>
+" Grep for the text selected. Do not look for word boundaries.
+vnoremap K "zy:<C-u>Grep "<C-r>z" .<CR>
+vmap <leader>grep K
+vmap <leader>grepd :Grep "\\<<C-r><C-w>\\>" %:p:h<CR>
+
+" Same as above, but for the location list.
+nnoremap <F9> :GrepL "\\<<C-r><C-w>\\>" .<CR>
+nmap <leader>grepl <F9>
+nmap <leader>grepl<Space> <F9>
+nmap <leader>grepl<CR> <F9>
+nmap <leader>grepld :GrepL "\\<<C-r><C-w>\\>" %:p:h<CR>
+vnoremap <F9> "zy:<C-u>GrepL "<C-r>z" .<CR>
+vmap <leader>grepl <F9>
+vmap <leader>grepld :GrepL "\\<<C-r><C-w>\\>" %:p:h<CR>
+
 
 " Update tags file.
 " --c-kind=+p considers function definitions.
@@ -346,7 +360,7 @@ imap <leader>date <C-R>=strftime('%Y-%m-%d')<CR>
 nmap <leader>date i<C-R>=strftime('%Y-%m-%d')<CR><Esc>
 
 " Spread parenthesis enclosed arguments, one on each line.
-map <F9> vi(:s/,\s*\([^$]\)/,\r\1/g<CR>vi(=f(%l
+map <F8> vi(:s/,\s*\([^$]\)/,\r\1/g<CR>vi(=f(%l
 
 " Easy paste of the search pattern without word boundaries.
 imap <C-e>/ <C-r>/<Esc>:let @z=@/<CR>`[v`]:<C-u>s/\%V\\<\\|\\>//g<CR>:let @/=@z<CR>a
