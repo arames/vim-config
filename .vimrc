@@ -92,125 +92,107 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 " Plugins =================================================================={{{1
 
-" Use Vundle to manage the plugins. See https://github.com/gmarik/vundle for
-" details.
+" Use Vim-plug to manage the plugins. See https://github.com/junegunn/vim-plug
+" for details.
 
-" Vundle configuration start ==========================={{{2
-filetype off
-if has('nvim')
-  set runtimepath+=~/.config/nvim/bundle/vundle/
-else
-  set runtimepath+=~/.vim/bundle/vundle/
-endif
+call plug#begin('~/.config/nvim/plugged')
 
-if has('nvim')
-  call vundle#rc('~/.config/nvim/bundle')
-else
-  call vundle#rc('~/.vim/bundle')
-endif
-
-call vundle#begin()
-
-Plugin 'gmarik/vundle'
-
-" List of plugins managed =============================={{{2
-
-" Case-sensitive search and replace (and more!).
-Plugin 'tpope/vim-abolish'
-
-" Easy commenting and uncommenting.
-Plugin 'tpope/vim-commentary'
-
-" Asynchronous grep.
-Plugin 'arames/vim-async-grep'
-
-" Word highlighting.
-Plugin 'vim-scripts/Mark--Karkat'
-
-" Allow opening a file to a specific line with 'file:line'
-Plugin 'bogado/file-line'
-
-" Easy access to an undo tree.
-Plugin 'mbbill/undotree'
-
-" Quickly move around.
-Plugin 'Lokaltog/vim-easymotion'
-let g:EasyMotion_leader_key = ','
-let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-
-Plugin 'arames/vim-diffgofile'
+Plug 'arames/vim-diffgofile'
 let g:diffgofile_goto_existing_buffer = 1
 autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 
-" Git integration.
-Plugin 'tpope/vim-fugitive'
-" Display lines git diff status when editing a file in a git repository.
-Plugin 'airblade/vim-gitgutter'
+" Case-sensitive search and replace (and more!).
+Plug 'tpope/vim-abolish'
 
-" Switch between header and implementation files.
-Plugin 'vim-scripts/a.vim'
-nnoremap <leader>hh :A<CR>
-
-" Diff between selected blocks of code.
-Plugin 'AndrewRadev/linediff.vim'
-
-" Languages syntax.
-Plugin 'dart-lang/dart-vim-plugin'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'hynek/vim-python-pep8-indent'
-
-" Personal wiki
-Plugin 'vim-scripts/vimwiki'
-" Use the markdown syntax
-let g:vimwiki_list = [{'path': '~/tools/vimwiki/',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
+" Quickly move around.
+Plug 'Lokaltog/vim-easymotion'
+let g:EasyMotion_leader_key = ','
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 " Quick file find and open.
 " See `:help command-t` for details and installation instructions.
-Plugin 'wincent/Command-T'
+Plug 'wincent/Command-T', {
+  \ 'do': 'cd ruby/command-t && ruby extconf.rb && make'
+  \ }
 nnoremap <silent> sp :sp<CR>:CommandT<CR>
 nnoremap <silent> vsp :vsplit<CR>:CommandT<CR>
 let g:CommandTMaxHeight=10
 let g:CommandTMatchWindowReverse=1
 
-if has('python')
-  Plugin 'Valloric/YouCompleteMe'
-  " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
-  " others, ask for confirmation before loading.
-  let g:ycm_confirm_extra_conf = 1
-  if filereadable(resolve(expand("~/.vim.ycm_whitelist")))
-    " This file should look something like:
-    "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
-    source ~/.vim.ycm_whitelist
-  endif
-  nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
-  " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
-  let g:ycm_key_list_select_completion = ['<Down>']
-  let g:ycm_key_list_previous_completion = ['<Up>']
-endif
+" Word highlighting.
+Plug 'vim-scripts/Mark--Karkat'
+
+" Personal wiki
+Plug 'vim-scripts/vimwiki'
+" Use the markdown syntax
+let g:vimwiki_list = [{'path': '~/Documents/wiki/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Unused plugins ===================={{3
 
+"" Easy commenting and uncommenting.
+"Plug 'tpope/vim-commentary'
+"
+"" Asynchronous grep.
+"Plug 'arames/vim-async-grep'
+"
+"" Allow opening a file to a specific line with 'file:line'
+"Plug 'bogado/file-line'
+"
+"" Easy access to an undo tree.
+"Plug 'mbbill/undotree'
+"
+"" Git integration.
+"Plug 'tpope/vim-fugitive'
+"" Display lines git diff status when editing a file in a git repository.
+"Plug 'airblade/vim-gitgutter'
+"
+"" Switch between header and implementation files.
+"Plug 'vim-scripts/a.vim'
+"nnoremap <leader>hh :A<CR>
+"
+"" Diff between selected blocks of code.
+"Plug 'AndrewRadev/linediff.vim'
+"
+"" Languages syntax.
+"Plug 'dart-lang/dart-vim-plugin'
+"Plug 'plasticboy/vim-markdown'
+"Plug 'hynek/vim-python-pep8-indent'
+"
+"if has('python')
+"  Plug 'Valloric/YouCompleteMe'
+"  " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
+"  " others, ask for confirmation before loading.
+"  let g:ycm_confirm_extra_conf = 1
+"  if filereadable(resolve(expand("~/.vim.ycm_whitelist")))
+"    " This file should look something like:
+"    "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
+"    source ~/.vim.ycm_whitelist
+"  endif
+"  nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
+"  " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
+"  let g:ycm_key_list_select_completion = ['<Down>']
+"  let g:ycm_key_list_previous_completion = ['<Up>']
+"endif
+
 "" Easy alignment.
-"Plugin 'junegunn/vim-easy-align'
+"Plug 'junegunn/vim-easy-align'
 "vmap <Enter> <Plug>(EasyAlign)
 
-""Plugin 'Rip-Rip/clang_complete'
+""Plug 'Rip-Rip/clang_complete'
 ""let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
 "
 """ Asynchronous commands
-""Plugin 'tpope/vim-dispatch'
-""Plugin 'vim-scripts/Align'
+""Plug 'tpope/vim-dispatch'
+""Plug 'vim-scripts/Align'
 """ Need to work out how to get it working for more complex projects.
-"""Plugin 'scrooloose/syntastic'
+"""Plug 'scrooloose/syntastic'
 
 
-" Vundle configuration end ============================={{{2
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 
 " Presentation ============================================================={{{1
@@ -372,8 +354,8 @@ map <F8> vi(:s/,\s*\([^$]\)/,\r\1/g<CR>vi(=f(%l
 imap <C-e>/ <C-r>/<Esc>:let @z=@/<CR>`[v`]:<C-u>s/\%V\\<\\|\\>//g<CR>:let @/=@z<CR>a
 
 " Automatically close the pop-up windown on move.
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Background compilation ==================================================={{{1
 let g:BgCompilation_res = '/tmp/vim.compilation.res'
@@ -412,8 +394,8 @@ cmap <C-e>/ "<C-r>/"
 " Moving around maps
 
 " Make <C-N> and <C-P> take the beginning of the line into account.
-cmap <C-n> <Down>
-cmap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
 
 " Remap keys to move like in edit mode.
 cnoremap <C-j> <C-N>

@@ -25,22 +25,24 @@ fi
 
 mkdir -p $BACKUP_DIR
 
-echo "Saving existing configuration."
-safe mv $VIMDIR $BACKUP_DIR
+if [ -e $VIMDIR ]; then
+	echo "Saving existing configuration."
+	safe mv $VIMDIR $BACKUP_DIR
+fi
 
 echo "Copying new files."
 safe cp -R .vim $VIMDIR
 safe ln -s `pwd`/.vimrc $VIMDIR/init.vim
 
-echo "Installing the plugin manager."
-safe git clone https://github.com/gmarik/vundle.git $VIMDIR/bundle/vundle
+echo "Installing the plugin manager (vim-plug)."
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo "Installing plugins."
-safe nvim -c PluginInstall -c qall
+safe nvim -c PlugInstall
 
-echo "Minor fixes to the config."
-# Use the diffgofile plugin for git diffs.
-safe mkdir -p $VIMDIR/ftplugin/
-safe ln -s $VIMDIR/bundle/vim-diffgofile/ftplugin/diff_gofile.vim $VIMDIR/ftplugin/git_diffgofile.vim
+#echo "Minor fixes to the config."
+## Use the diffgofile plugin for git diffs.
+#safe mkdir -p $VIMDIR/ftplugin/
+#safe ln -s $VIMDIR/bundle/vim-diffgofile/ftplugin/diff_gofile.vim $VIMDIR/ftplugin/git_diffgofile.vim
 
 echo "Done."
