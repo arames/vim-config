@@ -40,9 +40,4 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.g
 echo "Installing plugins."
 safe nvim -c PlugInstall
 
-#echo "Minor fixes to the config."
-## Use the diffgofile plugin for git diffs.
-#safe mkdir -p $VIMDIR/ftplugin/
-#safe ln -s $VIMDIR/bundle/vim-diffgofile/ftplugin/diff_gofile.vim $VIMDIR/ftplugin/git_diffgofile.vim
-
 echo "Done."

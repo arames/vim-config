@@ -97,7 +97,9 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'arames/vim-diffgofile'
+Plug 'arames/vim-diffgofile', {
+  \ 'do': 'cd ftplugin && ln -s diff_gofile.vim git_diffgofile.vim'
+  \ }
 let g:diffgofile_goto_existing_buffer = 1
 autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
@@ -125,6 +127,11 @@ let g:CommandTMatchWindowReverse=1
 " Word highlighting.
 Plug 'vim-scripts/Mark--Karkat'
 
+" Git integration.
+Plug 'tpope/vim-fugitive'
+" Display lines git diff status when editing a file in a git repository.
+Plug 'airblade/vim-gitgutter'
+
 " Personal wiki
 Plug 'vim-scripts/vimwiki'
 " Use the markdown syntax
@@ -136,19 +143,14 @@ let g:vimwiki_list = [{'path': '~/Documents/wiki/',
 "" Easy commenting and uncommenting.
 "Plug 'tpope/vim-commentary'
 "
-"" Asynchronous grep.
-"Plug 'arames/vim-async-grep'
+" Asynchronous grep.
+Plug 'arames/vim-async-grep'
 "
 "" Allow opening a file to a specific line with 'file:line'
 "Plug 'bogado/file-line'
 "
 "" Easy access to an undo tree.
 "Plug 'mbbill/undotree'
-"
-"" Git integration.
-"Plug 'tpope/vim-fugitive'
-"" Display lines git diff status when editing a file in a git repository.
-"Plug 'airblade/vim-gitgutter'
 "
 "" Switch between header and implementation files.
 "Plug 'vim-scripts/a.vim'
