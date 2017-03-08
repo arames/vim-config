@@ -36,9 +36,15 @@ endif
 
 hi Search    ctermfg=204 ctermbg=NONE cterm=underline
 
-hi PreProc   ctermfg=12
+hi PreProc   ctermfg=26
+hi cppStructure   ctermfg=152
+hi cStructure   ctermfg=152
 
-"hi Statement ctermfg=179 ctermbg=NONE
+" Control flow
+hi cStatement   ctermfg=180 ctermbg=NONE
+hi cRepeat      ctermfg=180 ctermbg=NONE
+hi cConditional ctermfg=180 ctermbg=NONE
+
 hi! link Statement  Normal
 hi! link Identifier Normal
 hi! link Type       Normal
@@ -64,3 +70,7 @@ hi YcmErrorSign ctermfg=233 ctermbg=124
 hi YcmErrorSection ctermfg=233 ctermbg=124
 hi YcmWarningSign ctermfg=233 ctermbg=3
 hi YcmWarningSection ctermfg=233 ctermbg=3
+
+" LLVM
+hi tgKeyword ctermfg=180
+hi tgType ctermfg=152
