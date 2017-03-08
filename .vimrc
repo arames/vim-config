@@ -141,6 +141,10 @@ Plug 'kana/vim-operator-user' " Required by `vim-clang-format`.
 Plug 'rhysd/vim-clang-format'
 autocmd FileType c,cpp,objc map <buffer><Leader>format <Plug>(operator-clang-format)
 
+" Highlight backtrace.
+" Useful to edit color schemes.
+Plug 'gerw/vim-HiLinkTrace'
+
 " Personal wiki
 Plug 'vim-scripts/vimwiki'
 " Use the markdown syntax
