@@ -112,7 +112,7 @@ Plug 'tpope/vim-abolish'
 " Quickly move around.
 Plug 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = ','
-let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
 " Quick file find and open.
 " See `:help command-t` for details and installation instructions.
@@ -131,6 +131,10 @@ Plug 'vim-scripts/Mark--Karkat'
 Plug 'tpope/vim-fugitive'
 " Display lines git diff status when editing a file in a git repository.
 Plug 'airblade/vim-gitgutter'
+
+" Switch between header and implementation files.
+Plug 'vim-scripts/a.vim'
+nnoremap <leader>hh :A<CR>
 
 " Personal wiki
 Plug 'vim-scripts/vimwiki'
@@ -151,10 +155,6 @@ Plug 'arames/vim-async-grep'
 "
 "" Easy access to an undo tree.
 "Plug 'mbbill/undotree'
-"
-"" Switch between header and implementation files.
-"Plug 'vim-scripts/a.vim'
-"nnoremap <leader>hh :A<CR>
 "
 "" Diff between selected blocks of code.
 "Plug 'AndrewRadev/linediff.vim'
