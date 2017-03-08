@@ -136,6 +136,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/a.vim'
 nnoremap <leader>hh :A<CR>
 
+" `clang-format` integration.
+Plug 'kana/vim-operator-user' " Required by `vim-clang-format`.
+Plug 'rhysd/vim-clang-format'
+autocmd FileType c,cpp,objc map <buffer><Leader>format <Plug>(operator-clang-format)
+
 " Personal wiki
 Plug 'vim-scripts/vimwiki'
 " Use the markdown syntax
