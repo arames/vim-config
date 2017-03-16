@@ -141,6 +141,24 @@ Plug 'kana/vim-operator-user' " Required by `vim-clang-format`.
 Plug 'rhysd/vim-clang-format'
 autocmd FileType c,cpp,objc map <buffer><Leader>format <Plug>(operator-clang-format)
 
+if has('python')
+  Plug 'Valloric/YouCompleteMe', {
+  \ 'do': './install.py --clang-completer'
+  \ }
+  " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
+  " others, ask for confirmation before loading.
+  let g:ycm_confirm_extra_conf = 1
+  if filereadable(resolve(expand("~/.config/nvim/ycm_whitelist")))
+    " This file should look something like:
+    "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
+    source ~/.config/nvim/ycm_whitelist
+  endif
+  nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
+  " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
+  let g:ycm_key_list_select_completion = ['<Down>']
+  let g:ycm_key_list_previous_completion = ['<Up>']
+endif
+
 " Highlight backtrace.
 " Useful to edit color schemes.
 Plug 'gerw/vim-HiLinkTrace'
@@ -173,22 +191,6 @@ Plug 'arames/vim-async-grep'
 "Plug 'plasticboy/vim-markdown'
 "Plug 'hynek/vim-python-pep8-indent'
 "
-"if has('python')
-"  Plug 'Valloric/YouCompleteMe'
-"  " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
-"  " others, ask for confirmation before loading.
-"  let g:ycm_confirm_extra_conf = 1
-"  if filereadable(resolve(expand("~/.vim.ycm_whitelist")))
-"    " This file should look something like:
-"    "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
-"    source ~/.vim.ycm_whitelist
-"  endif
-"  nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
-"  " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
-"  let g:ycm_key_list_select_completion = ['<Down>']
-"  let g:ycm_key_list_previous_completion = ['<Up>']
-"endif
-
 "" Easy alignment.
 "Plug 'junegunn/vim-easy-align'
 "vmap <Enter> <Plug>(EasyAlign)
