@@ -169,6 +169,9 @@ Plug 'vim-scripts/vimwiki'
 let g:vimwiki_list = [{'path': '~/Documents/wiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
+Plug 'christoomey/vim-tmux-navigator'
+
+
 " Unused plugins ===================={{3
 
 "" Easy commenting and uncommenting.
