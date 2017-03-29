@@ -98,7 +98,8 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'arames/vim-diffgofile', {
-  \ 'do': 'cd ftplugin && ln -s diff_gofile.vim git_diffgofile.vim'
+  \ 'do': 'cd ftplugin && ln -s diff_gofile.vim git_diffgofile.vim',
+  \ 'for': ['diff', 'git']
   \ }
 let g:diffgofile_goto_existing_buffer = 1
 autocmd FileType diff nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
