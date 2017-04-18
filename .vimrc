@@ -338,9 +338,9 @@ command! -nargs=* -complete=dir TagsUpdate call Async(s:TagsUpdate_command, 'Tag
 
 " Opens the definition in a vertical split.
 " <C-w><C-]> is the default for the same in a horizontal split.
-map <C-]>       :exec("tjump "  . expand("<cword>"))<CR>
-map <C-w><C-]>  :exec("stjump " . expand("<cword>"))<CR>
-map <C-v><C-]>  :vsp <CR>:exec("tjump ".expand("<cword>"))<CR>
+nmap <C-]>       :exec("tjump "  . expand("<cword>"))<CR>
+nmap <C-w><C-]>  :exec("stjump " . expand("<cword>"))<CR>
+nmap <C-v><C-]>  :vsp <CR>:exec("tjump ".expand("<cword>"))<CR>
 
 " Indentation =========================================={{{2
 
