@@ -125,8 +125,9 @@ Plug 'wincent/Command-T', {
   \ }
 nnoremap <silent> sp :sp<CR>:CommandT<CR>
 nnoremap <silent> vsp :vsplit<CR>:CommandT<CR>
-let g:CommandTMaxHeight=10
-let g:CommandTMatchWindowReverse=1
+let g:CommandTMaxCachedDirectories=0
+let g:CommandTFileScanner='git'
+let g:CommandTGitScanSubmodul=1
 
 " Word highlighting.
 Plug 'vim-scripts/Mark--Karkat'
