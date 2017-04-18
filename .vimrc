@@ -115,6 +115,9 @@ Plug 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
+" Easy parenthesis and co.
+Plug 'tpope/vim-surround'
+
 " Quick file find and open.
 " See `:help command-t` for details and installation instructions.
 Plug 'wincent/Command-T', {
