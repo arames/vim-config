@@ -376,8 +376,8 @@ map <F8> vi(:s/,\s*\([^$]\)/,\r\1/g<CR>vi(=f(%l
 imap <C-e>/ <C-r>/<Esc>:let @z=@/<CR>`[v`]:<C-u>s/\%V\\<\\|\\>//g<CR>:let @/=@z<CR>a
 
 " Automatically close the pop-up windown on move.
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Background compilation ==================================================={{{1
 let g:BgCompilation_res = '/tmp/vim.compilation.res'
