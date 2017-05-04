@@ -262,6 +262,9 @@ set showmatch                    " Briefly display matching bracket.
 set matchtime=5                  " Time (*0.1s) to show matching bracket.
 set incsearch                    " Perform incremental searching.
 set tags=.tags
+if has('nvim')
+  set cpoptions-=_               " Interpret `cw` strictly, not as `ce`.
+endif
 
 " Turn off last search highlighting
 nmap <Space> :nohlsearch<CR>
