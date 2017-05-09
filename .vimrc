@@ -265,6 +265,7 @@ set matchtime=5                  " Time (*0.1s) to show matching bracket.
 set incsearch                    " Perform incremental searching.
 set tags=.tags
 if has('nvim')
+  set inccommand=nosplit         " Show incremental results of substitute.
   set cpoptions-=_               " Interpret `cw` strictly, not as `ce`.
 endif
 
