@@ -141,6 +141,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/a.vim'
 nnoremap <leader>hh :A<CR>
 
+Plug 'scrooloose/nerdtree'
+
 " `clang-format` integration.
 Plug 'kana/vim-operator-user' " Required by `vim-clang-format`.
 Plug 'rhysd/vim-clang-format'
