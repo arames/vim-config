@@ -119,15 +119,7 @@ let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 Plug 'tpope/vim-surround'
 
 " Quick file find and open.
-" See `:help command-t` for details and installation instructions.
-Plug 'wincent/Command-T', {
-  \ 'do': 'cd ruby/command-t && ruby extconf.rb && make'
-  \ }
-nnoremap <silent> sp :sp<CR>:CommandT<CR>
-nnoremap <silent> vsp :vsplit<CR>:CommandT<CR>
-let g:CommandTMaxCachedDirectories=0
-let g:CommandTFileScanner='git'
-let g:CommandTGitScanSubmodul=1
+Plug 'kien/ctrlp.vim'
 
 " Word highlighting.
 Plug 'vim-scripts/Mark--Karkat'
