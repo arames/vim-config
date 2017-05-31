@@ -397,7 +397,7 @@ endfunction
 " Terminal ================================================================={{{1
 
 if has('nvim')
-  tnoremap <C-[> <C-\><C-n>
+  tnoremap <C-]> <C-\><C-n>
 endif
 
 
