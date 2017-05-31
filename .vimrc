@@ -261,7 +261,6 @@ set incsearch                    " Perform incremental searching.
 set tags=.tags
 if has('nvim')
   set inccommand=nosplit         " Show incremental results of substitute.
-  set cpoptions-=_               " Interpret `cw` strictly, not as `ce`.
 endif
 
 " Turn off last search highlighting
