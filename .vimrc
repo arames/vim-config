@@ -359,6 +359,8 @@ command IndentLLVM        set   expandtab shiftwidth=2 tabstop=2 cinoptions=(0,w
 
 IndentLLVM
 
+autocmd FileType sh IndentLinuxKernel
+
 
 ""  Show indentation guides.
 "set list listchars=tab:\.\
