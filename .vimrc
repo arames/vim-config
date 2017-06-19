@@ -282,6 +282,8 @@ xnoremap <leader>'  :<C-u>let@z=@"<CR>gvs''<Esc>P<Right>%:<C-u>let@"=@z<CR>
 xnoremap <leader>"  :<C-u>let@z=@"<CR>gvs""<Esc>P<Right>%:<C-u>let@"=@z<CR>
 xnoremap <leader>`  :<C-u>let@z=@"<CR>gvs``<Esc>P<Right>%:<C-u>let@"=@z<CR>
 
+nnoremap <F4> :q<CR>
+
 " Completion ==========================================={{{2
 " Display a menu, insert the longest common prefix but don't select the first
 " entry, and display some additional information if available.
