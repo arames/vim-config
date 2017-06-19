@@ -168,7 +168,7 @@ Plug 'gerw/vim-HiLinkTrace'
 " Personal wiki
 Plug 'vim-scripts/vimwiki'
 " Use the markdown syntax
-let g:vimwiki_list = [{'path': '~/Documents/wiki/',
+let g:vimwiki_list = [{'path': '/Users/arames/Library/Mobile Documents/com~apple~icloud~applecorporate/Documents/wiki',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 Plug 'christoomey/vim-tmux-navigator'
