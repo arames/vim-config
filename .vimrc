@@ -159,6 +159,9 @@ if has('python')
   " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
   let g:ycm_key_list_select_completion = ['<Down>']
   let g:ycm_key_list_previous_completion = ['<Up>']
+
+  " Fast access to YcmCompleter
+  cabbr ycmc YcmCompleter
 endif
 
 " Highlight backtrace.
