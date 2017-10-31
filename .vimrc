@@ -162,6 +162,10 @@ if has('python')
 
   " Fast access to YcmCompleter
   cabbr ycmc YcmCompleter
+  nnoremap ,g  :YcmCompleter GoTo<CR>
+  nnoremap ,gg  :YcmCompleter GoTo<CR>
+  nnoremap ,gh :YcmCompleter GoToDeclaration<CR>
+  nnoremap ,gc :YcmCompleter GoToDefinition<CR>
 endif
 
 " Highlight backtrace.
@@ -351,6 +355,7 @@ nmap <C-v><C-]>  :vsp <CR>:exec("tjump ".expand("<cword>"))<CR>
 " Indentation =========================================={{{2
 
 set textwidth=80
+set nojoinspaces
 
 " Automatically strip the comment marker when joining automated lines.
 set formatoptions+=j
