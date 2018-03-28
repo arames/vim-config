@@ -6,11 +6,11 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "quiet_ajr"
+let colors_name = "quiet"
 
 if !(has("gui_running") || &t_Co == 256)
-	echom "The quiet_ajr colour scheme is designed for 256 colours or more."
-	echom "In a recent terminal, use `set t_Co=256`."
+	echom "The quiet colour scheme is designed for 256 colours or more."
+	echom "In a recent vim, use `set t_Co=256`."
 endif
 
 hi Normal       ctermfg=252 ctermbg=233
@@ -34,18 +34,17 @@ if version >= 700
   hi MatchParen             ctermbg=6
 endif
 
-hi Search    ctermfg=204 ctermbg=NONE cterm=underline
+hi Search        ctermfg=204 ctermbg=NONE cterm=underline
 
-hi PreProc   ctermfg=26
-hi cppStructure   ctermfg=152
-hi cStructure   ctermfg=152
+hi PreProc       ctermfg=26
+hi cppStructure  ctermfg=152
+hi cStructure    ctermfg=152
 
 " Control flow
-hi cStatement   ctermfg=180 ctermbg=NONE
+hi Statement   ctermfg=180 ctermbg=NONE
 hi cRepeat      ctermfg=180 ctermbg=NONE
 hi cConditional ctermfg=180 ctermbg=NONE
 
-hi! link Statement  Normal
 hi! link Identifier Normal
 hi! link Type       Normal
 hi! link Constant   Normal
@@ -74,3 +73,18 @@ hi YcmWarningSection ctermfg=233 ctermbg=3
 " LLVM
 hi tgKeyword ctermfg=180
 hi tgType ctermfg=152
+
+" C++
+hi! link cppStatement Normal
+" TODO
+hi! cppAccess ctermfg=3 ctermbg=233
+
+" Markdown
+hi markdownH1    ctermfg=161
+hi markdownH2    ctermfg=162
+hi markdownH3    ctermfg=163
+hi markdownCode  ctermfg=229
+hi! link markdownCodeBlock markdownCode
+
+" Custom for vimrc
+hi Green ctermfg=47

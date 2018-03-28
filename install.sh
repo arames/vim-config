@@ -31,8 +31,11 @@ if [ -e $VIMDIR ]; then
 fi
 
 echo "Copying new files."
-safe cp -R .vim $VIMDIR
-safe ln -s `pwd`/.vimrc $VIMDIR/init.vim
+safe mkdir -p $VIMDIR
+for d in $(ls .vim); do
+safe ln -s $PWD/.vim/$d $VIMDIR/$d
+done
+safe ln -s $PWD/.vimrc $VIMDIR/init.vim
 
 echo "Installing the plugin manager (vim-plug)."
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
