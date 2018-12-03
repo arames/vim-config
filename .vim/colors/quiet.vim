@@ -37,13 +37,15 @@ endif
 hi Search        ctermfg=204 ctermbg=NONE cterm=underline
 
 hi PreProc       ctermfg=26
-hi cppStructure  ctermfg=152
-hi cStructure    ctermfg=152
+hi cppStructure  ctermfg=110
+hi cStructure    ctermfg=110
 
 " Control flow
-hi Statement   ctermfg=180 ctermbg=NONE
-hi cRepeat      ctermfg=180 ctermbg=NONE
-hi cConditional ctermfg=180 ctermbg=NONE
+hi Statement    ctermfg=179 ctermbg=NONE
+hi cRepeat      ctermfg=179 ctermbg=NONE
+hi cConditional ctermfg=179 ctermbg=NONE
+
+hi StorageClass ctermfg=115 ctermbg=NONE
 
 hi! link Identifier Normal
 hi! link Type       Normal
@@ -71,8 +73,8 @@ hi YcmWarningSign ctermfg=233 ctermbg=3
 hi YcmWarningSection ctermfg=233 ctermbg=3
 
 " LLVM
-hi tgKeyword ctermfg=180
-hi tgType ctermfg=152
+hi tgKeyword ctermfg=179
+hi tgType ctermfg=110
 
 " C++
 hi! link cppStatement Normal
@@ -83,7 +85,7 @@ hi! cppAccess ctermfg=3 ctermbg=233
 hi markdownH1    ctermfg=161
 hi markdownH2    ctermfg=162
 hi markdownH3    ctermfg=163
-hi markdownCode  ctermfg=229
+hi markdownCode  ctermfg=110
 hi! link markdownCodeBlock markdownCode
 
 " Custom for vimrc

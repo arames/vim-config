@@ -119,8 +119,13 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf'
 nmap <C-p> :FZF<CR>
 
+" Provide argument objects.
+Plug 'inkarkat/argtextobj.vim'
+
 " Word highlighting.
-Plug 'vim-scripts/Mark--Karkat'
+Plug 'inkarkat/vim-mark'
+" Dependency of `inkarkat/vim-mark`.
+Plug 'inkarkat/vim-ingo-library'
 
 " Git integration.
 Plug 'tpope/vim-fugitive'
@@ -151,8 +156,7 @@ if has('python')
   if filereadable(resolve(expand("~/.config/nvim/ycm_whitelist")))
     " This file should look something like:
     "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
-    " TODO: fix this source ~/.config/nvim/ycm_whitelist
-    let g:ycm_extra_conf_globlist = ['/work/metal/*/metalfe/*']
+    source ~/.config/nvim/ycm_whitelist
   endif
   " TODO: remove: nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
   " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
@@ -166,9 +170,11 @@ if has('python')
   nnoremap ,gh :YcmCompleter GoToDeclaration<CR>
   nnoremap ,gc :YcmCompleter GoToDefinition<CR>
 
-  " Automatically close the pop-up windown on move.
-  autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-  autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+  " TODO: This bugs when editting in the command-editing window (<C-F> in
+  " command mode).
+  "" Automatically close the pop-up windown on move.
+  "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+  "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 endif
 
 " Highlight backtrace.
@@ -336,11 +342,8 @@ set grepprg=grep\ -RHIn\ --exclude=\".tags\"\ --exclude-dir=\".svn\"\ --exclude-
 
 " Update tags file.
 
-" --c-kind=+p considers function definitions.
-" --fields=+S registers signature of functions.
-let s:TagsUpdateCommand = '!ctags -o .tags --recurse --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q'
-
 if has('nvim')
+  let s:TagsUpdateCommand = 'ctags -o .tags --recurse --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q'
   function! s:TagsUpdateOnExit(job_id, data, event)
     if a:data == 0
       echohl Green | echo "Done building tags." | echohl None
@@ -355,7 +358,7 @@ if has('nvim')
   \ 'on_stderr': function('s:TagsUpdateHandler'),
   \ 'on_exit': function('s:TagsUpdateOnExit')
   \ }
-  command! TagsUpdate call jobstart([s:TagsUpdateCommand . '<args>'], s:TagsUpdateCallbacks)
+  command! TagsUpdate call jobstart(split(s:TagsUpdateCommand), s:TagsUpdateCallbacks)
 else
   command! TagsUpdate silent !ctags -o .tags --recurse --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q
 endif
@@ -391,7 +394,7 @@ command! IndentLLVM        set   expandtab shiftwidth=2 tabstop=2 cinoptions=(0,
 " Default indentation styles
 IndentGoogle
 autocmd FileType cpp IndentGoogle
-autocmd FileType sh IndentLinuxKernel
+autocmd FileType sh IndentGoogle
 
 
 """  Show indentation guides.
