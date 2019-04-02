@@ -19,7 +19,10 @@ hi VertSplit    ctermfg=233 ctermbg=241
 hi StatusLine   ctermfg=248 ctermbg=233
 hi StatusLineNC ctermfg=235 ctermbg=252
 
-hi Visual    ctermbg=237
+hi CursorLine cterm=none ctermbg=235
+hi CursorColumn ctermbg=235
+
+hi Visual    ctermbg=24
 
 " Used by vim-gitgutter. Clear to use the same as LineNr.
 hi clear SignColumn
