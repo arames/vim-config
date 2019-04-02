@@ -94,6 +94,25 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 call plug#begin(s:dir_vim_config.'/plugged')
 
+" Can't see why I would remove these ==================={{{2
+
+
+" Evaluating these ====================================={{{2
+
+Plug 'raimondi/delimitmate'
+
+" Unused. Keeping for reference or future use =========={{{2
+
+"" Switch between header and implementation files.
+"Plug 'vim-scripts/a.vim'
+"nnoremap <leader>hh :A<CR>
+
+"Plug 'scrooloose/nerdtree'
+
+" Unclassified ========================================={{{2
+
+" TODO: Classify all these plugins in sections above.
+
 Plug 'arames/vim-diffgofile', {
   \ 'do': 'cd ftplugin && ln -s diff_gofile.vim git_diffgofile.vim',
   \ 'for': ['diff', 'git']
@@ -131,12 +150,6 @@ Plug 'inkarkat/vim-ingo-library'
 Plug 'tpope/vim-fugitive'
 " Display lines git diff status when editing a file in a git repository.
 Plug 'airblade/vim-gitgutter'
-
-"" Switch between header and implementation files.
-"Plug 'vim-scripts/a.vim'
-"nnoremap <leader>hh :A<CR>
-"
-"Plug 'scrooloose/nerdtree'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
