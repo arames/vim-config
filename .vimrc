@@ -159,7 +159,7 @@ Plug 'kana/vim-operator-user' " Required by `vim-clang-format`.
 Plug 'rhysd/vim-clang-format'
 autocmd FileType c,cpp,objc map <buffer><Leader>f <Plug>(operator-clang-format)
 
-if has('python')
+if has('python3')
   Plug 'Valloric/YouCompleteMe', {
   \ 'do': './install.py --clang-completer'
   \ }
@@ -171,10 +171,19 @@ if has('python')
     "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
     source ~/.config/nvim/ycm_whitelist
   endif
-  " TODO: remove: nnoremap <F12> :silent YcmForceCompileAndDiagnostics<CR>
   " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
   let g:ycm_key_list_select_completion = ['<Down>']
   let g:ycm_key_list_previous_completion = ['<Up>']
+
+  " By default we use `clangd` with YCM. Uncomment the following to disable `clangd`.
+  " let g:ycm_use_clangd = 0
+  " Allow background indexing.
+  " In particular, this allows `GoToDefinition` across compilation units.
+  let g:ycm_clangd_args = [ '-background-index' ]
+  " Let clangd fully control code completion.
+  let g:ycm_clangd_uses_ycmd_caching = 0
+  " Use installed clangd, not the YCM-bundled clangd which doesn't get updates.
+  let g:ycm_clangd_binary_path = exepath("clangd")
 
   " Fast access to YcmCompleter
   cabbrev ycmc YcmCompleter
