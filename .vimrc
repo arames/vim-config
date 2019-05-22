@@ -94,12 +94,19 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 call plug#begin(s:dir_vim_config.'/plugged')
 
-" Can't see why I would remove these ==================={{{2
+" Used frequently ======================================{{{2
 
+" Case-sensitive search and replace (and more!).
+Plug 'tpope/vim-abolish'
+ 
+" Fuzzy finder.
+Plug 'junegunn/fzf'
+nmap <C-p> :FZF<CR>
 
-" Evaluating these ====================================={{{2
-
-Plug 'raimondi/delimitmate'
+" Quickly move around.
+Plug 'Lokaltog/vim-easymotion'
+let g:EasyMotion_leader_key = ','
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
 " Unused. Keeping for reference or future use =========={{{2
 
@@ -123,20 +130,8 @@ autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 
-" Case-sensitive search and replace (and more!).
-Plug 'tpope/vim-abolish'
-
-" Quickly move around.
-Plug 'Lokaltog/vim-easymotion'
-let g:EasyMotion_leader_key = ','
-let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
-
 " Easy parenthesis and co.
 Plug 'tpope/vim-surround'
-
-" Fuzzy finder.
-Plug 'junegunn/fzf'
-nmap <C-p> :FZF<CR>
 
 " Provide argument objects.
 Plug 'inkarkat/argtextobj.vim'
