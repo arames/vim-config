@@ -30,6 +30,7 @@ set wildignore=*.bak,*.o,*.e,*~ " Wildmenu: ignore these extensions.
 set wildmenu                    " Command-line completion in an enhanced mode.
 set wildmode=list:longest       " Complete longest common string, then list.
 set showcmd                     " Display incomplete commands.
+"set clipboard=unnamedplus				" copying copies to the system clipboard.
 
 let s:hostname = substitute(system('hostname'), '\n', '', '')
 if s:hostname == "achille"
@@ -94,6 +95,62 @@ autocmd BufWritePost * if &ft == "" | filetype detect | endif
 
 call plug#begin(s:dir_vim_config.'/plugged')
 
+"" Testing =============================================={{{2
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <silent> cr <Plug>(coc-rename)
+
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+set updatetime=2000
+
+
+
+"Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+"Plug 'chrisbra/Colorizer'
+"
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"if executable('clangd')
+"    autocmd User lsp_setup call lsp#register_server({
+"        \ 'name': 'clangd',
+"        \ 'cmd': {server_info->['clangd', '-background-index']},
+"        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+"        \ })
+"endif
+""let g:lsp_log_verbose = 1
+""let g:lsp_log_file = expand('~/vim-lsp.log')
+"
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"" TODO: Not seeing preview
+" set completeopt+=preview
+""autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+"nnoremap ,g :LspDefinition<CR>
+"nnoremap ,r :LspReferences<CR>
+"nnoremap ,p :LspPreviousReference<CR>
+"nnoremap ,n :LspNextReference<CR>
+"nnoremap ,s :LspRename<CR>
+"nnoremap <C-<Space>> :LspPeekDefinition
+
 " Used frequently ======================================{{{2
 
 " Case-sensitive search and replace (and more!).
@@ -108,18 +165,6 @@ Plug 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
-" Unused. Keeping for reference or future use =========={{{2
-
-"" Switch between header and implementation files.
-"Plug 'vim-scripts/a.vim'
-"nnoremap <leader>hh :A<CR>
-
-"Plug 'scrooloose/nerdtree'
-
-" Unclassified ========================================={{{2
-
-" TODO: Classify all these plugins in sections above.
-
 Plug 'arames/vim-diffgofile', {
   \ 'do': 'cd ftplugin && ln -s diff_gofile.vim git_diffgofile.vim',
   \ 'for': ['diff', 'git']
@@ -130,74 +175,17 @@ autocmd FileType diff nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 autocmd FileType git nnoremap <buffer> <C-]> :call DiffGoFile('n')<CR>
 autocmd FileType git nnoremap <buffer> <C-v><C-]> :call DiffGoFile('v')<CR>
 
-" Easy parenthesis and co.
-Plug 'tpope/vim-surround'
+" Git integration.
+Plug 'tpope/vim-fugitive'
+
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'vim-airline/vim-airline'
 
 " Provide argument objects.
 Plug 'inkarkat/argtextobj.vim'
 
-" Word highlighting.
-Plug 'inkarkat/vim-mark'
-" Dependency of `inkarkat/vim-mark`.
-Plug 'inkarkat/vim-ingo-library'
-
-" Git integration.
-Plug 'tpope/vim-fugitive'
-" Display lines git diff status when editing a file in a git repository.
-Plug 'airblade/vim-gitgutter'
-
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" `clang-format` integration.
-Plug 'kana/vim-operator-user' " Required by `vim-clang-format`.
-Plug 'rhysd/vim-clang-format'
-autocmd FileType c,cpp,objc map <buffer><Leader>f <Plug>(operator-clang-format)
-
-if has('python3')
-  Plug 'Valloric/YouCompleteMe', {
-  \ 'do': './install.py --clang-completer'
-  \ }
-  " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
-  " others, ask for confirmation before loading.
-  let g:ycm_confirm_extra_conf = 1
-  if filereadable(resolve(expand("~/.config/nvim/ycm_whitelist")))
-    " This file should look something like:
-    "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
-    source ~/.config/nvim/ycm_whitelist
-  endif
-  " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
-  let g:ycm_key_list_select_completion = ['<Down>']
-  let g:ycm_key_list_previous_completion = ['<Up>']
-
-  " By default we use `clangd` with YCM. Uncomment the following to disable `clangd`.
-  " let g:ycm_use_clangd = 0
-  " Allow background indexing.
-  " In particular, this allows `GoToDefinition` across compilation units.
-  let g:ycm_clangd_args = [ '-background-index' ]
-  " Let clangd fully control code completion.
-  let g:ycm_clangd_uses_ycmd_caching = 0
-  " Use installed clangd, not the YCM-bundled clangd which doesn't get updates.
-  let g:ycm_clangd_binary_path = exepath("clangd")
-
-  " Fast access to YcmCompleter
-  cabbrev ycmc YcmCompleter
-  nnoremap ,g  :YcmCompleter GoTo<CR>
-  nnoremap ,gg  :YcmCompleter GoTo<CR>
-  nnoremap ,gh :YcmCompleter GoToDeclaration<CR>
-  nnoremap ,gc :YcmCompleter GoToDefinition<CR>
-
-  " TODO: This bugs when editting in the command-editing window (<C-F> in
-  " command mode).
-  "" Automatically close the pop-up windown on move.
-  "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-  "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-endif
-
-" Highlight backtrace.
-" Useful to edit color schemes.
-Plug 'gerw/vim-HiLinkTrace'
-nmap <F10> :HLT<CR>
+" Used sometimes ======================================={{{2
 
 " Personal wiki
 Plug 'vim-scripts/vimwiki'
@@ -205,67 +193,140 @@ Plug 'vim-scripts/vimwiki'
 let g:vimwiki_list = [{'path': '/Users/arames/Library/Mobile Documents/com~apple~icloud~applecorporate/Documents/wiki',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
-Plug 'christoomey/vim-tmux-navigator'
-
-
-"" Unused plugins ===================={{3
+"" Unused. Keeping for reference or future use =========={{{2
 "
-"" Quick file find and open.
-"Plug 'kien/ctrlp.vim'
+""" Switch between header and implementation files.
+""Plug 'vim-scripts/a.vim'
+""nnoremap <leader>hh :A<CR>
 "
-""" Easy commenting and uncommenting.
-""Plug 'tpope/vim-commentary'
-""
-"" Asynchronous grep.
-"Plug 'arames/vim-async-grep'
-""
-""" Allow opening a file to a specific line with 'file:line'
-""Plug 'bogado/file-line'
-""
-""" Easy access to an undo tree.
-""Plug 'mbbill/undotree'
-""
-""" Diff between selected blocks of code.
-""Plug 'AndrewRadev/linediff.vim'
-""
-""" Languages syntax.
-""Plug 'dart-lang/dart-vim-plugin'
-""Plug 'plasticboy/vim-markdown'
-""Plug 'hynek/vim-python-pep8-indent'
-""
-""" Easy alignment.
-""Plug 'junegunn/vim-easy-align'
-""vmap <Enter> <Plug>(EasyAlign)
+""Plug 'scrooloose/nerdtree'
 "
-"""Plug 'Rip-Rip/clang_complete'
-"""let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
+"" `clang-format` integration.
+" Now provided directly by `coc.vim`.
+"Plug 'kana/vim-operator-user' " Required by `vim-clang-format`.
+"Plug 'rhysd/vim-clang-format'
+"autocmd FileType c,cpp,objc map <buffer><Leader>f <Plug>(operator-clang-format)
+"
+" I just use the default airline theme.
+"Plug 'vim-airline/vim-airline-themes'
+"
+"" Now using `coc.vim` instead.
+""if has('python3')
+""  Plug 'Valloric/YouCompleteMe', {
+""  \ 'do': './install.py --clang-completer'
+""  \ }
+""  " A few YCM configuration files are whitelisted in `~/.vim.ycm_whitelist`. For
+""  " others, ask for confirmation before loading.
+""  let g:ycm_confirm_extra_conf = 1
+""  if filereadable(resolve(expand("~/.config/nvim/ycm_whitelist")))
+""    " This file should look something like:
+""    "   let g:ycm_extra_conf_globlist = ['path/to/project_1/*', 'path/to/project_2/*' ]
+""    source ~/.config/nvim/ycm_whitelist
+""  endif
+""  " Don't use <Tab>. <C-n> and <C-p> are better, and we use tabs in vim-sem-tabs.
+""  let g:ycm_key_list_select_completion = ['<Down>']
+""  let g:ycm_key_list_previous_completion = ['<Up>']
 ""
-"""" Asynchronous commands
-"""Plug 'tpope/vim-dispatch'
-"""Plug 'vim-scripts/Align'
-"""" Need to work out how to get it working for more complex projects.
-""""Plug 'scrooloose/syntastic'
+""  " By default we use `clangd` with YCM. Uncomment the following to disable `clangd`.
+""  " let g:ycm_use_clangd = 0
+""  " Allow background indexing.
+""  " In particular, this allows `GoToDefinition` across compilation units.
+""  let g:ycm_clangd_args = [ '-background-index' ]
+""  " Let clangd fully control code completion.
+""  let g:ycm_clangd_uses_ycmd_caching = 0
+""  " Use installed clangd, not the YCM-bundled clangd which doesn't get updates.
+""  let g:ycm_clangd_binary_path = exepath("clangd")
+""
+""  " Fast access to YcmCompleter
+""  cabbrev ycmc YcmCompleter
+""  nnoremap ,g  :YcmCompleter GoTo<CR>
+""  nnoremap ,gg  :YcmCompleter GoTo<CR>
+""  nnoremap ,gh :YcmCompleter GoToDeclaration<CR>
+""  nnoremap ,gc :YcmCompleter GoToDefinition<CR>
+""
+""  " TODO: This bugs when editting in the command-editing window (<C-F> in
+""  " command mode).
+""  "" Automatically close the pop-up windown on move.
+""  "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+""  "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+""endif
+"
+"" Unclassified ========================================={{{2
+"
+"" TODO: Classify all these plugins in sections above.
+"
+"" Easy parenthesis and co.
+"Plug 'tpope/vim-surround'
+"
+"" Word highlighting.
+"Plug 'inkarkat/vim-mark'
+"" Dependency of `inkarkat/vim-mark`.
+"Plug 'inkarkat/vim-ingo-library'
+"
+"" Display lines git diff status when editing a file in a git repository.
+"Plug 'airblade/vim-gitgutter'
+"
+"" Highlight backtrace.
+"" Useful to edit color schemes.
+"Plug 'gerw/vim-HiLinkTrace'
+"nmap <F10> :HLT<CR>
+"
+""" Unused plugins ===================={{3
+""
+""" Quick file find and open.
+""Plug 'kien/ctrlp.vim'
+""
+"""" Easy commenting and uncommenting.
+"""Plug 'tpope/vim-commentary'
+"""
+""" Asynchronous grep.
+""Plug 'arames/vim-async-grep'
+"""
+"""" Allow opening a file to a specific line with 'file:line'
+"""Plug 'bogado/file-line'
+"""
+"""" Easy access to an undo tree.
+"""Plug 'mbbill/undotree'
+"""
+"""" Diff between selected blocks of code.
+"""Plug 'AndrewRadev/linediff.vim'
+"""
+"""" Languages syntax.
+"""Plug 'dart-lang/dart-vim-plugin'
+"""Plug 'plasticboy/vim-markdown'
+"""Plug 'hynek/vim-python-pep8-indent'
+"""
+"""" Easy alignment.
+"""Plug 'junegunn/vim-easy-align'
+"""vmap <Enter> <Plug>(EasyAlign)
+""
+""""Plug 'Rip-Rip/clang_complete'
+""""let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
+"""
+""""" Asynchronous commands
+""""Plug 'tpope/vim-dispatch'
+""""Plug 'vim-scripts/Align'
+""""" Need to work out how to get it working for more complex projects.
+"""""Plug 'scrooloose/syntastic'
 
 
 call plug#end()
 
 
-"" Presentation ============================================================={{{1
-"
+" Presentation ============================================================={{{1
+
 "" Uncommenting this will allow specifying 24bit colors. The very simple color
 "" scheme used does not need this.
 ""if has('nvim')
 ""  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 ""endif
 "
-if !has('nvim')
-  " neovim looks at the environment variable `$TERM`, which is expected to
-  " contain `256color`.
-  set t_Co=256                  " 256 colors.
-endif
+set termguicolors								" Use gui colors in the terminal.
 syntax on                       " Enable syntax highlighting.
 colorscheme quiet
 set ruler                       " Show the cursor position all the time.
+set guicursor=a:block,i-ci:ver10,r-cr:hor10
+" set cursorline                  " Highlight the line where the cursor is.
 set winminheight=0              " Minimum size of splits is 0.
 set nowrap                      " Do not wrap lines.
 set scrolloff=5                 " Show at least 5 lines around the cursor.
@@ -273,9 +334,14 @@ set noerrorbells                " No bells.
 "let &sbr = nr2char(8618).' '    " Show ↪ at the beginning of wrapped lines.
 
 set number                      " Display line numbers.
-"" Display relative line numbers in normal mode and absolute line numbers
-"" in insert mode.
-"set relativenumber              " Display relative line numbers.
+set relativenumber              " Display relative line numbers.
+" Display relative line numbers in normal mode and absolute line numbers
+" in insert mode.
+augroup relativenumbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 "autocmd InsertEnter * :set number
 "autocmd InsertLeave * :set relativenumber
 "" Always display absolute line numbers in the quick-fix windows for easy
@@ -505,7 +571,8 @@ augroup END
 " Misc ====================================================================={{{1
 
 "autocmd BufEnter SConstruct setf python
-"autocmd BufRead,BufNewFile *.metal setfiletype cpp
+autocmd BufRead,BufNewFile *.metal setfiletype cpp
+autocmd BufRead,BufNewFile metal_* setfiletype cpp
 
 "" The following allows using mappings with the 'alt' key in terminals using the
 "" ESC prefix (including gnome terminal). Unluckily this does not always play
