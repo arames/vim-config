@@ -71,6 +71,11 @@ hi! link diffRemoved DiffDelete
 
 " Plugin-specific groups
 
+hi! link CocErrorHighlight     Error
+hi! link CocErrorSign          Error
+hi! link CocWarningSign        Warning
+hi! link CocHighlightText      Focus
+
 " LLVM
 hi tgKeyword ctermfg=179
 hi tgType ctermfg=110
