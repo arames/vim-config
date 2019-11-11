@@ -97,33 +97,10 @@ call plug#begin(s:dir_vim_config.'/plugged')
 
 "" Testing =============================================={{{2
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-
-nmap <silent> cr <Plug>(coc-rename)
-
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
-set updatetime=2000
-
-
-
-"Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 "Plug 'chrisbra/Colorizer'
 "
 "Plug 'prabirshrestha/async.vim'
@@ -185,7 +162,33 @@ Plug 'vim-airline/vim-airline'
 " Provide argument objects.
 Plug 'inkarkat/argtextobj.vim'
 
+" Code completion using LSP.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <silent> gr <Plug>(coc-rename)
+
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+autocmd CursorMoved * silent call CocActionAsync('highlight')
+
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 " Used sometimes ======================================={{{2
+
+" Easy parenthesis and co.
+Plug 'tpope/vim-surround'
 
 " Personal wiki
 Plug 'vim-scripts/vimwiki'
@@ -254,9 +257,6 @@ let g:vimwiki_list = [{'path': '/Users/arames/Library/Mobile Documents/com~apple
 "" Unclassified ========================================={{{2
 "
 "" TODO: Classify all these plugins in sections above.
-"
-"" Easy parenthesis and co.
-"Plug 'tpope/vim-surround'
 "
 "" Word highlighting.
 "Plug 'inkarkat/vim-mark'
