@@ -167,8 +167,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
-
-nmap <silent> gr <Plug>(coc-rename)
+nmap <silent> gq <Plug>(coc-fix-current)
+nmap <silent> gs <Plug>(coc-rename)
 
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)

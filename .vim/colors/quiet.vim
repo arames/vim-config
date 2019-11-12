@@ -22,7 +22,9 @@ hi       Focus                 guifg=#11aa11               gui=none
 hi       FocusBg                             guibg=#115511 gui=none
 
 hi       Error                 guifg=#111111 guibg=#bb0000 gui=bold
+hi       ErrorBg               guifg=#bb0000 guibg=#111111 gui=bold
 hi       Warning               guifg=#111111 guibg=#c08000 gui=bold
+hi       WarningBg             guifg=#c08000 guibg=#111111 gui=bold
 
 
 " Usual groups
@@ -71,10 +73,13 @@ hi! link diffRemoved DiffDelete
 
 " Plugin-specific groups
 
-hi! link CocErrorHighlight     Error
+hi! link CocErrorFloat         Error
+hi! link CocErrorHighlight     ErrorBg
 hi! link CocErrorSign          Error
-hi! link CocWarningSign        Warning
 hi! link CocHighlightText      Focus
+hi! link CocWarningFloat       Warning
+hi! link CocWarningHighlight   WarningBg
+hi! link CocWarningSign        Warning
 
 " LLVM
 hi tgKeyword ctermfg=179
