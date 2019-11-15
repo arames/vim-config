@@ -547,7 +547,10 @@ cnoremap <C-p> <Up>
 " Projects ================================================================={{{1
 
 augroup metalfe
-  autocmd BufRead,BufEnter */metalfe/* IndentLLVM
+  au!
+  autocmd BufNewFile,BufRead *.metal set filetype=cpp
+  autocmd BufNewFile,BufRead metal_* set filetype=cpp
+  autocmd BufEnter */metalfe/* IndentLLVM
 augroup END
 
 "augroup ART
@@ -569,10 +572,6 @@ augroup END
 
 
 " Misc ====================================================================={{{1
-
-"autocmd BufEnter SConstruct setf python
-autocmd BufRead,BufNewFile *.metal setfiletype cpp
-autocmd BufRead,BufNewFile metal_* setfiletype cpp
 
 "" The following allows using mappings with the 'alt' key in terminals using the
 "" ESC prefix (including gnome terminal). Unluckily this does not always play
