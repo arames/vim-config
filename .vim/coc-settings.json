@@ -1,5 +1,7 @@
 {
-"languageserver": {
+  "suggest.autoTrigger": "always",
+  "suggest.floatEnable": true,
+  "languageserver": {
     "clangd": {
       "command": "clangd",
       "args": ["--background-index"],

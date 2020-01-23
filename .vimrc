@@ -32,11 +32,6 @@ set wildmode=list:longest       " Complete longest common string, then list.
 set showcmd                     " Display incomplete commands.
 "set clipboard=unnamedplus				" copying copies to the system clipboard.
 
-let s:hostname = substitute(system('hostname'), '\n', '', '')
-if s:hostname == "achille"
-  let mapleader = "\"
-endif
-
 " Load/save and automatic backup ==========================================={{{1
 
 
@@ -166,12 +161,18 @@ Plug 'inkarkat/argtextobj.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gh <Plug>(coc-declaration)
 nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gq <Plug>(coc-fix-current)
+"nmap <silent> gq <Plug>(coc-fix-current)
 nmap <silent> gs <Plug>(coc-rename)
 
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+"inoremap <silent><expr> <c-space> coc#refresh()
+
+set updatetime=1000
+
 
 autocmd CursorMoved * silent call CocActionAsync('highlight')
 
@@ -367,7 +368,7 @@ if has('nvim')
 endif
 
 " Turn off last search highlighting
-nmap <Space> :nohlsearch<CR>
+"nmap <Space> :nohlsearch<CR>
 
 " Move between splits.
 nnoremap <C-h> <C-w>h
@@ -376,17 +377,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 
-"" Easy bracketing in visual mode.
-"" Take care of saving the unnamed register.
-"vnoremap <leader>(  :<C-u>let@z=@"<CR>gvs()<Esc>P<Right>%:<C-u>let@"=@z<CR>
-"vnoremap <leader>[  :<C-u>let@z=@"<CR>gvs[]<Esc>P<Right>%:<C-u>let@"=@z<CR>
-"vnoremap <leader>{  :<C-u>let@z=@"<CR>gvs{}<Esc>P<Right>%:<C-u>let@"=@z<CR>
-"xnoremap <leader>'  :<C-u>let@z=@"<CR>gvs''<Esc>P<Right>%:<C-u>let@"=@z<CR>
-"xnoremap <leader>"  :<C-u>let@z=@"<CR>gvs""<Esc>P<Right>%:<C-u>let@"=@z<CR>
-"xnoremap <leader>`  :<C-u>let@z=@"<CR>gvs``<Esc>P<Right>%:<C-u>let@"=@z<CR>
-"
-"nnoremap <F4> :q<CR>
-"
 "" Completion ==========================================={{{2
 "" Display a menu, insert the longest common prefix but don't select the first
 "" entry, and display some additional information if available.
