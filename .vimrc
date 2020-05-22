@@ -30,7 +30,7 @@ set wildignore=*.bak,*.o,*.e,*~ " Wildmenu: ignore these extensions.
 set wildmenu                    " Command-line completion in an enhanced mode.
 set wildmode=list:longest       " Complete longest common string, then list.
 set showcmd                     " Display incomplete commands.
-"set clipboard=unnamedplus				" copying copies to the system clipboard.
+"set clipboard=unnamedplus      " copying copies to the system clipboard.
 
 " Load/save and automatic backup ==========================================={{{1
 
@@ -157,35 +157,6 @@ Plug 'vim-airline/vim-airline'
 " Provide argument objects.
 Plug 'inkarkat/argtextobj.vim'
 
-" Code completion using LSP.
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gh <Plug>(coc-declaration)
-nmap <silent> gr <Plug>(coc-references)
-"nmap <silent> gq <Plug>(coc-fix-current)
-nmap <silent> gs <Plug>(coc-rename)
-
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-"inoremap <silent><expr> <c-space> coc#refresh()
-
-set updatetime=1000
-
-
-autocmd CursorMoved * silent call CocActionAsync('highlight')
-
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " Used sometimes ======================================={{{2
 
 " Easy parenthesis and co.
@@ -266,12 +237,41 @@ let g:vimwiki_list = [{'path': '/Users/arames/Library/Mobile Documents/com~apple
 "
 "" Display lines git diff status when editing a file in a git repository.
 "Plug 'airblade/vim-gitgutter'
-"
-"" Highlight backtrace.
-"" Useful to edit color schemes.
-"Plug 'gerw/vim-HiLinkTrace'
+
+" Highlight backtrace.
+" Useful to edit color schemes.
+Plug 'gerw/vim-HiLinkTrace'
 "nmap <F10> :HLT<CR>
+
+"" Code completion using LSP.
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gh <Plug>(coc-declaration)
+"nmap <silent> gr <Plug>(coc-references)
+""nmap <silent> gq <Plug>(coc-fix-current)
+"nmap <silent> gs <Plug>(coc-rename)
+"
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
+"
+""inoremap <silent><expr> <c-space> coc#refresh()
+"
+"set updatetime=1000
+"
+"
+"autocmd CursorMoved * silent call CocActionAsync('highlight')
+"
+"
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
+"function! s:show_documentation()
+"  if (index(['vim','help'], &filetype) >= 0)
+"    execute 'h '.expand('<cword>')
+"  else
+"    call CocAction('doHover')
+"  endif
+"endfunction
+
 """ Unused plugins ===================={{3
 ""
 """ Quick file find and open.
@@ -316,13 +316,7 @@ call plug#end()
 
 " Presentation ============================================================={{{1
 
-"" Uncommenting this will allow specifying 24bit colors. The very simple color
-"" scheme used does not need this.
-""if has('nvim')
-""  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-""endif
-"
-set termguicolors								" Use gui colors in the terminal.
+set termguicolors               " Use gui colors in the terminal.
 syntax on                       " Enable syntax highlighting.
 colorscheme quiet
 set ruler                       " Show the cursor position all the time.
